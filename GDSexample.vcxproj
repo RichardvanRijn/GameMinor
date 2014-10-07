@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A8917BB2-D033-4226-ABA1-6E69C693D44A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet1.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(GKINCDIR);C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(GKINCDIR)\Engine;$(GKINCDIR)\build\Engine;$(GKINCDIR)\Ogre-1.9a\OgreMain\include;$(GKINCDIR)\Ogre-1.9a\Components\Overlay\include;$(GKINCDIR)\build\include;$(GKINCDIR)\Ogre-1.9a\OgreMain\include\WIN32;$(GKINCDIR)\Ogre-1.9a\Components\RTShaderSystem\include;$(GKINCDIR)\Engine\AI;$(GKINCDIR)\GUI;$(GKINCDIR)\Engine\External\Ogre\supp;$(GKINCDIR)\bullet\src;$(GKINCDIR)\Dependencies\Source\FreeType\include;$(GKINCDIR)\Dependencies\Source\FreeImage\ZLib;$(GKINCDIR)\Dependencies\Source\OIS\include;$(GKINCDIR)\Dependencies\Source\GameKit\Utils;$(GKINCDIR)\Dependencies\Source\GameKit\AnimKit;$(GKINCDIR)\Tools\FileTools\File;$(GKINCDIR)\Tools\FileTools\FileFormats\Blend;$(GKINCDIR)\Dependencies\Source\OpenAL;$(GKINCDIR)\Dependencies\Source\Codecs\include;$(GKINCDIR)\Dependencies\Source\Lua\lua;$(GKINCDIR)\Dependencies\Source\ZZipLib;$(GKINCDIR)\Samples\CppDemo\.;$(GKINCDIR)\Samples\CppDemo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MinimalRebuild>false</MinimalRebuild>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(GKLIBDIR)\Debug\OgreKitCore.lib;$(GKLIBDIR)\Debug\OgreMainStatic.lib;$(GKLIBDIR)\Debug\OgreOverlayStatic.lib;$(GKLIBDIR)\Debug\FreeImage.lib;$(GKLIBDIR)\Debug\freetype.lib;$(GKLIBDIR)\Debug\RenderSystem_Direct3D9Static.lib;$(GKLIBDIR)\Debug\RenderSystem_Direct3D11Static.lib;$(GKLIBDIR)\Debug\GameKitUtils.lib;$(GKLIBDIR)\Debug\OIS.lib;$(GKLIBDIR)\Debug\ZLib.lib;$(GKLIBDIR)\Debug\AnimKit.lib;$(GKLIBDIR)\Debug\fbtFile.lib;$(GKLIBDIR)\Debug\bfBlend.lib;$(GKLIBDIR)\Debug\OgreRTShaderSystemStatic.lib;$(GKLIBDIR)\Debug\OpenAL.lib;$(GKLIBDIR)\Debug\OggVorbis.lib;$(GKLIBDIR)\Debug\Lua.lib;$(GKLIBDIR)\Debug\ZZipLib.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3d9.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3dx9.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3d11.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\dxgi.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\dxguid.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3dcompiler.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3dx11.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\DxErr.lib;$(GKLIBDIR)\Debug\BulletDynamics.lib;$(GKLIBDIR)\Debug\BulletCollision.lib;$(GKLIBDIR)\Debug\LinearMath.lib;$(GKLIBDIR)\Debug\Plugin_ParticleFXStatic.lib</AdditionalDependencies>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
+      <ImportLibrary>
+      </ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Opdracht1.cpp" />
+    <ClCompile Include="Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Opdracht1.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
