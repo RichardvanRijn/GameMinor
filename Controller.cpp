@@ -59,8 +59,8 @@ void Controller::tick(gkScalar delta)
 	static float cameraheight = 0.6;
 	static float cameragimbleup = -.5;
 	static float cameragimbledown = .8;
-	static int tickcounter = 0;
-	static int tickbuffer = 0;
+	static bool tickcounter = false;
+	static bool tickbuffer = false;
 
 	if (m_mouse->mouseMoved())
 	{
@@ -68,7 +68,7 @@ void Controller::tick(gkScalar delta)
 
 		gkQuaternion cameraqua = m_camera->getOrientation();
 		gkVector3 cameravect = (cameraqua.xAxis(), cameraqua.yAxis(), cameraqua.zAxis());
-		
+
 		if (m_mouse->relative.x != 0.f){
 			m_camera->roll(-gkRadian(m_mouse->relative.x * tick));
 		}
@@ -77,16 +77,24 @@ void Controller::tick(gkScalar delta)
 		}
 	}
 
-	if (m_keyboard->isKeyDown(KC_PKEY) && tickcounter == 0){
-		m_deur->playAnimation(deur[0], gkGlobalActionBlend, AK_ACT_END);
-		tickcounter++;
+	gkVector3 temp = m_deur->getPosition() - m_cube->getPosition();
+	float lenght = temp.length();
+	if (m_keyboard->isKeyDown(KC_EKEY) && (deur[0]->isDone() || deur[0]->getTimePosition() == 0) && (lenght <= 1)){
+		tickbuffer = true;
 	}
-	if (tickcounter > 0 && tickcounter < 20){
-		tickcounter++;
+	if (tickbuffer == true && tickcounter == false){
+		deur[0]->reset();
+		deur[0]->setMode(AK_ACT_END);
+		m_deur->playAnimation(deur[0], 0);
+		tickcounter = true;
+		tickbuffer = false;
 	}
-	else {
-		tickcounter = 0;
-		m_deur->stopAnimation(deur[0]);
+	else if (tickbuffer == true && tickcounter == true){
+		deur[0]->reset();
+		deur[0]->setMode(AK_ACT_INVERSE);
+		m_deur->playAnimation(deur[0], 0);
+		tickcounter = false;
+		tickbuffer = false;
 	}
 
 	gkVector3 cameraworld = m_cube->getWorldPosition();
@@ -129,7 +137,7 @@ void Controller::tick(gkScalar delta)
 		totalspeed.z = buffer.z;
 	}
 	totalspeed.z = buffer.z;
-	std::cout << totalspeed << std::endl;
+//	std::cout << totalspeed << std::endl;
 	m_cube->setLinearVelocity(totalspeed);
 
 	for (UTsize i = 0; i < gamePlayers.size(); i++)
