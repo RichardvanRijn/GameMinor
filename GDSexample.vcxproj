@@ -84,16 +84,18 @@
   <ItemGroup>
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Opdracht1.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Opdracht1.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

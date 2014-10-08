@@ -8,13 +8,24 @@
 
 class GameObject
 {
-protected:
-    gkGameObject *obj;
 public:
-    GameObject(gkScene* m_scene, GameObject* p);
-    GameObject(gkScene* m_scene, const char* fname, const char* name);
-    gkVector3 position;
+	GameObject(gkGameObject* object);
+	GameObject(gkScene* m_scene, GameObject* p);    
+	~GameObject();
+
+    virtual void setPosition(gkVector3 pos);
+	void setObj(gkGameObject* object);
+
+    const char* getObjName() const;    
+    gkVector3 getPosition() const;
+	gkGameObject* getObj() const;
+
     virtual void tick();
+
+private:
+    gkGameObject *obj;
+    gkVector3 position;    
+
 };
 
 

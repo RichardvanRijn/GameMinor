@@ -17,7 +17,6 @@ Player::Player(gkGameObject* object, gkCamera* cam) :
 
 Player::~Player()
 {
-	delete getObj();
 	delete keyboard;
 	delete view;
 }
@@ -38,13 +37,9 @@ void Player::setView(gkCamera* cam) {
 }
 
 void Player::move() {
-	static gkVector3 totalSpeed;
-	gkVector3 viewDirection = view->getViewDirection();
-	
-	std::cout << "View Direction: " << viewDirection << std::endl;
-	std::cout << "Move speed: " << moveSpeed << std::endl;
-
+	gkVector3 totalSpeed(0, 0, 0);	
 	gkVector3 buffer = getObj()->getLinearVelocity();
+	gkVector3 viewDirection = view->getViewDirection();
 
 	if (keyboard->isKeyDown(KC_WKEY)) {	
 		totalSpeed.x = -moveSpeed * viewDirection.x;
@@ -69,12 +64,12 @@ void Player::move() {
 		&& !keyboard->isKeyDown(KC_DKEY) && (totalSpeed != gkVector3(0, 0, 0)))
 	{
 		gkVector3 reverse = getObj()->getLinearVelocity();
-		getObj()->setLinearVelocity(-0.1 * reverse);
+		getObj()->setLinearVelocity(0.1 * reverse);
 		totalSpeed.x = 0;
 		totalSpeed.y = 0;
 		totalSpeed.z = buffer.z;
 	}
-	std::cout << "Total Speed: " << totalSpeed << std::endl;
+	
 	totalSpeed.z = buffer.z;
 	getObj()->setLinearVelocity(totalSpeed);
 }
@@ -86,7 +81,7 @@ void Player::tick() {
 		view->moveView();
 	
 	//if (keyboard->text)
-	//	move();
+		move();
 	
 }
 

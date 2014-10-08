@@ -11,9 +11,9 @@ class gkGameController;
 
 namespace gkAppData
 {
-static const gkScalar gkFixedTickDelta    = 1.f / 60.f;
-static const gkScalar gkFixedTickDelta2   = 2.f* gkFixedTickDelta;
-static const gkScalar gkCameraTol         = 0.25f;
+	static const gkScalar gkFixedTickDelta    = 1.f / 60.f;
+	static const gkScalar gkFixedTickDelta2   = 2.f* gkFixedTickDelta;
+	static const gkScalar gkCameraTol         = 0.25f;
 };
 
 
