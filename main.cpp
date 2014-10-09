@@ -16,7 +16,7 @@ int main(int argc, char** argv)
     prefs.debugFps = true;
 	gkEngine eng(&prefs);
 	eng.initialize();
-    Controller* game = new Level("../Project Game Development/kamers.blend");
+    Controller* game = new Level("kamers.blend");
 	game->loadLevel();
 	eng.addListener(game);
 	eng.initializeStepLoop();
