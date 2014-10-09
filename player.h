@@ -15,13 +15,16 @@ public:
 
 	void move();
 	void tick();
-	
+	void tick(bool& wantsToUse);
+
 	View* getView() const;
 
 private:
 	View* view;
 	gkKeyboard* keyboard;	
 	
+	bool interact();
+
 	float moveSpeed;
 };
 

@@ -1,5 +1,6 @@
 #include "level.h"
 #include <iostream>
+#include "Ogre.h"
 
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
@@ -10,8 +11,16 @@ Level::Level(char* lvlPath) :
 void Level::tick(gkScalar delta)
 {        
 	Controller::tick(delta);   
+	bool playerWantsToUse = false;
 
-	player->tick();
+	player->tick(playerWantsToUse);
+
+	if (playerWantsToUse){
+		gkWindow* mainWindow = gkWindowSystem::getSingletonPtr()->getMainWindow();
+		Ogre::Ray* ray = player->getView()->getView()->getCamera()->getCameraToViewportRay();
+		Ogre::RaySceneQuery* rayQuery = m_scene->getManager()->createRayQuery(*ray);
+		rayQuery->setSortByDistance(true);
+	}
 }
 
 void Level::loadLevel()

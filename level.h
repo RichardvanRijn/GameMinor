@@ -4,10 +4,13 @@
 #include "Controller.h"
 #include "player.h"
 
+class InteractableObject;
+
 class Level : public Controller
 {
 private:	
 	Player* player;
+	std::vector<InteractableObject*> interactableObjects;
 
 public: 
     Level(char* lvlPath);

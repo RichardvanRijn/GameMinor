@@ -74,6 +74,10 @@ void Player::move() {
 	getObj()->setLinearVelocity(totalSpeed);
 }
 
+bool Player::interact(){
+	return (keyboard->isKeyDown(KC_EKEY));
+}
+
 void Player::tick() {		
 	getView()->setViewpoint(getObj()->getWorldPosition());
 
@@ -81,8 +85,14 @@ void Player::tick() {
 		view->moveView();
 	
 	//if (keyboard->text)
-		move();
 	
+	move();
+}
+
+void Player::tick(bool& wantsToUse) {
+	Player::tick();
+
+	wantsToUse = interact();
 }
 
 View* Player::getView() const {

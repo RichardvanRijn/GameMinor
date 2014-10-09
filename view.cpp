@@ -75,3 +75,7 @@ gkCamera* const View::getView() const {
 gkVector3 View::getViewDirection() const {
 	return (view->getOrientation().xAxis(), view->getOrientation().yAxis(), view->getOrientation().zAxis());
 }
+
+gkVector3 View::getViewPosition() const{
+	return(view->getPosition());
+}

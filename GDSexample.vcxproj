@@ -83,7 +83,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="door.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="interactableobject.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
@@ -91,7 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="door.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="interactableobject.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="player.h" />

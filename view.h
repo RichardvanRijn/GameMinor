@@ -25,6 +25,7 @@ public:
 	gkCamera* const getView() const;
 	
 	gkVector3 getViewDirection() const;
+	gkVector3 getViewPosition() const;
 
 private:
 	float viewHeight;
