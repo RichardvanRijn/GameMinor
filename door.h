@@ -4,7 +4,7 @@
 class Door : public InteractableObject
 {
 public:
-	Door(gkGameObject* object);
+	Door(gkGameObject* object, const char* animName);
 	virtual ~Door();
 
 	void interact();
