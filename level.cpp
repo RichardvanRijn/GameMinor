@@ -69,6 +69,12 @@ void Level::loadLevel()
 	player->setKeyboard(m_keyboard);
 	player->setMoveSpeed(2);
 	player->getView()->setViewControl(m_mouse);
-
-	interactableObjects.push_back(new Door(m_scene->getObject("deur"), "Deuropen"));
+	for (int i = 0; i < 4; i++){
+		std::string name = "deur.00";
+		name += std::to_string(i);
+		std::string anima = "Deuropen.00";
+		anima += std::to_string(i);
+		const char* anim = anima.c_str();	
+		interactableObjects.push_back(new Door(m_scene->getObject(name), anim));
+	}
 }

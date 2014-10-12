@@ -39,6 +39,9 @@
     <ClCompile Include="interactableobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="raam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="interactableobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="raam.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
