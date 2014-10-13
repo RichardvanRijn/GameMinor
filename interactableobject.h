@@ -4,10 +4,14 @@
 class InteractableObject : public GameObject
 {
 public:
-	InteractableObject(gkGameObject* object);
+	InteractableObject(gkGameObject* object, bool canBePicked);
 	virtual ~InteractableObject();
 
-	virtual void interact() = 0;
+	virtual void interact();
+	bool isPickable();
+
+private:
+	bool pickable;
 
 };
 

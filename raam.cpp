@@ -1,11 +1,11 @@
 #include "raam.h"
 
 
-Raam::Raam(gkGameObject* object, const char* animName) :
-InteractableObject(object),
-isOpened(false),
-canBeUsed(false),
-blocked(false)
+Raam::Raam(gkGameObject* object, bool pickable, const char* animName) :
+	InteractableObject(object, pickable),
+	isOpened(false),
+	canBeUsed(false),
+	blocked(false)
 {
 	getObj()->addAnimation(animName);
 	door = getObj()->getAnimationPlayer(animName);

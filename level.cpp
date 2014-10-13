@@ -17,11 +17,9 @@ void Level::tick(gkScalar delta)
 
 	player->tick(playerWantsToUse);
 
-	if (playerWantsToUse){
+	if (playerWantsToUse) {
 		gkWindow* mainWindow = gkWindowSystem::getSingletonPtr()->getMainWindow();
 		Ogre::Ray ray(player->getView()->getViewPosition(), -(player->getView()->getViewDirection()));
-		//Ogre::Ray ray = player->getView()->getView()->getCamera()->getCameraToViewportRay((mainWindow->getWidth()/2),(-mainWindow->getHeight()/2));
-//		player->getObj()->setLinearVelocity(2 * ray.getDirection());
 		
 		Ogre::RaySceneQuery* rayQuery = m_scene->getManager()->createRayQuery(ray);
 		rayQuery->setSortByDistance(true);
@@ -29,8 +27,6 @@ void Level::tick(gkScalar delta)
 		Ogre::RaySceneQueryResult& result = rayQuery->execute();
 
 		Ogre::RaySceneQueryResult::iterator resultIterator, endOfResult;
-
-//		std::cout << "Size of ray result: " << result.size() << std::endl;
 		
 		endOfResult = std::remove_if(result.begin(), result.end(), [](Ogre::RaySceneQueryResultEntry resultObj) {
 				return(resultObj.distance == 0 || resultObj.distance > 1);
@@ -42,7 +38,6 @@ void Level::tick(gkScalar delta)
 		for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
 			gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
 			
-
 			for (auto currentObj = interactableObjects.begin(); currentObj != interactableObjects.end(); ++currentObj) {
 				InteractableObject* currentObject = (*currentObj);
 				
@@ -51,13 +46,14 @@ void Level::tick(gkScalar delta)
 					break;
 				}
 			}
-
-//			std::cout << "Distance to Object: " << resultIterator->distance << std::endl;
-//			std::cout << "Object name: " << resultIterator->movable->getName() << std::endl;
 		}
 
-		if (objectToInteract != NULL)
-			objectToInteract->interact();
+		if (objectToInteract != NULL) {
+			if (objectToInteract->isPickable())
+				player->setPickedUpItem(objectToInteract);
+			else
+				objectToInteract->interact();
+		}
 	}
 }
 
@@ -68,6 +64,8 @@ void Level::loadLevel()
 	player = new Player(m_scene->getObject("banaan"), m_scene->getObject("Camera")->getCamera());	
 	player->setKeyboard(m_keyboard);
 	player->setMoveSpeed(2);
+	player->setItemHoldPosition(gkVector3(0, -0.4, 0));
+
 	player->getView()->setViewControl(m_mouse);
 	for (int i = 0; i < 4; i++){
 		std::string name = "deur.00";
@@ -75,6 +73,9 @@ void Level::loadLevel()
 		std::string anima = "Deuropen.00";
 		anima += std::to_string(i);
 		const char* anim = anima.c_str();	
-		interactableObjects.push_back(new Door(m_scene->getObject(name), anim));
+		interactableObjects.push_back(new Door(m_scene->getObject(name), false, anim));
 	}
+
+	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Pan.001"), true));
+	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
 }

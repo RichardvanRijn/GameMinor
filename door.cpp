@@ -1,8 +1,8 @@
 #include "door.h"
 
 
-Door::Door(gkGameObject* object, const char* animName) :
-	InteractableObject(object),
+Door::Door(gkGameObject* object, bool pickable, const char* animName) :
+	InteractableObject(object, pickable),
 	isOpened(false),
 	canBeUsed(false)
 {

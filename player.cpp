@@ -1,15 +1,17 @@
 #include "player.h"
-#include "view.h"
+#include "interactableobject.h"
 
 Player::Player(gkGameObject* object) :
 	GameObject(object),
-	view(NULL)
+	view(NULL),
+	pickedUpItem(NULL)
 {
 	
 }
 
 Player::Player(gkGameObject* object, gkCamera* cam) :
-	GameObject(object)
+	GameObject(object),
+	pickedUpItem(NULL)
 {	
 	//view = new View(cam);
 	view = new View(cam, 0.6, -.5, .8);
@@ -19,6 +21,14 @@ Player::~Player()
 {
 	delete keyboard;
 	delete view;
+}
+
+void Player::setItemHoldPosition(gkVector3 position) {
+	itemPosition = position;
+}
+
+void Player::dropItem() {
+	pickedUpItem = NULL;
 }
 
 void Player::setMoveSpeed(float speed) {
@@ -36,57 +46,73 @@ void Player::setView(gkCamera* cam) {
 		view = new View(cam);
 }
 
+void Player::setPickedUpItem(InteractableObject* item) {
+	pickedUpItem = item;
+}
+
 void Player::move() {
-	gkVector3 totalSpeed(0, 0, 0);	
+	gkVector3 totalSpeed(0, 0, 0);
 	gkVector3 buffer = getObj()->getLinearVelocity();
 	gkVector3 viewDirection = view->getViewDirection();
-
-	if (keyboard->isKeyDown(KC_WKEY)) {	
-		totalSpeed.x = -moveSpeed * viewDirection.x;
-		totalSpeed.y = -moveSpeed * viewDirection.y;
+	
+	/*if (!keyboard->isKeyDown(KC_WKEY) && !keyboard->isKeyDown(KC_SKEY) && !keyboard->isKeyDown(KC_AKEY)
+		&& !keyboard->isKeyDown(KC_DKEY) && (totalSpeed != gkVector3(0, 0, 0)))
+	{
+		//gkVector3 reverse = getObj()->getLinearVelocity();
+		getObj()->setLinearVelocity(-0.1 * buffer);
+		totalSpeed.x = 0;
+		totalSpeed.y = 0;
+		totalSpeed.z = buffer.z;
+	}*/
+	if (keyboard->isKeyDown(KC_WKEY)) {
+		totalSpeed.x += -moveSpeed * viewDirection.x;
+		totalSpeed.y += -moveSpeed * viewDirection.y;
 	}
 	else if (keyboard->isKeyDown(KC_SKEY)) {
-		totalSpeed.x = moveSpeed * viewDirection.x;
-		totalSpeed.y = moveSpeed * viewDirection.y;
+		totalSpeed.x += moveSpeed * viewDirection.x;
+		totalSpeed.y += moveSpeed * viewDirection.y;
 	}
 
 	if (keyboard->isKeyDown(KC_AKEY)) {
 		totalSpeed.x += moveSpeed * viewDirection.y;
-		totalSpeed.y += -moveSpeed * viewDirection.x;		
+		totalSpeed.y += -moveSpeed * viewDirection.x;
 	}
-
 	else if (keyboard->isKeyDown(KC_DKEY)) {
 		totalSpeed.x += -moveSpeed * viewDirection.y;
 		totalSpeed.y += moveSpeed * viewDirection.x;
 	}
-	
-	if (!keyboard->isKeyDown(KC_WKEY) && !keyboard->isKeyDown(KC_SKEY) && !keyboard->isKeyDown(KC_AKEY)
-		&& !keyboard->isKeyDown(KC_DKEY) && (totalSpeed != gkVector3(0, 0, 0)))
-	{
-		gkVector3 reverse = getObj()->getLinearVelocity();
-		getObj()->setLinearVelocity(0.1 * reverse);
-		totalSpeed.x = 0;
-		totalSpeed.y = 0;
-		totalSpeed.z = buffer.z;
-	}
-	
+			
 	totalSpeed.z = buffer.z;
 	getObj()->setLinearVelocity(totalSpeed);
+}
+
+void Player::stopMoving() {
+	gkVector3 reverse = getObj()->getLinearVelocity();
+	getObj()->setLinearVelocity(0.1 * reverse);
+
+	getObj()->setLinearVelocity(gkVector3(0, 0, reverse.z));
 }
 
 bool Player::interact(){
 	return (keyboard->isKeyDown(KC_EKEY));
 }
 
-void Player::tick() {		
+void Player::tick() {
 	getView()->setViewpoint(getObj()->getWorldPosition());
 
 	if (view->mouseIsMoved())
 		view->moveView();
 	
-	//if (keyboard->text)
+	std::cout << "Keyboard text: " << keyboard->text << std::endl;
 	
-	move();
+	if (keyboard->text > 0)	
+		move();	
+	else
+		stopMoving();
+
+	if (pickedUpItem != NULL) {
+		pickedUpItem->getObj()->setPosition(view->getViewPosition() -view->getViewDirection());
+	}
 }
 
 void Player::tick(bool& wantsToUse) {

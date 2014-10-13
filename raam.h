@@ -4,7 +4,7 @@
 class Raam : public InteractableObject
 {
 public:
-	Raam(gkGameObject* object, const char* animName);
+	Raam(gkGameObject* object, bool pickable, const char* animName);
 	virtual ~Raam();
 
 	void interact();
