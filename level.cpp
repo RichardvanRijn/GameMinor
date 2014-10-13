@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Ogre.h"
 #include "door.h"
+#include "raam.h"
 #include <algorithm>
 
 Level::Level(char* lvlPath) :
@@ -77,4 +78,5 @@ void Level::loadLevel()
 		const char* anim = anima.c_str();	
 		interactableObjects.push_back(new Door(m_scene->getObject(name), anim));
 	}
+	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), "RaamAction"));
 }
