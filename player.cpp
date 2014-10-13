@@ -51,13 +51,13 @@ void Player::move() {
 	}
 
 	if (keyboard->isKeyDown(KC_AKEY)) {
-		totalSpeed.x += moveSpeed * viewDirection.y;
-		totalSpeed.y += -moveSpeed * viewDirection.x;		
+		totalSpeed.x += moveSpeed * viewDirection.y * 0.4;
+		totalSpeed.y += -moveSpeed * viewDirection.x * 0.4;		
 	}
 
 	else if (keyboard->isKeyDown(KC_DKEY)) {
-		totalSpeed.x += -moveSpeed * viewDirection.y;
-		totalSpeed.y += moveSpeed * viewDirection.x;
+		totalSpeed.x += -moveSpeed * viewDirection.y * 0.4;
+		totalSpeed.y += moveSpeed * viewDirection.x * 0.4;
 	}
 	
 	if (!keyboard->isKeyDown(KC_WKEY) && !keyboard->isKeyDown(KC_SKEY) && !keyboard->isKeyDown(KC_AKEY)

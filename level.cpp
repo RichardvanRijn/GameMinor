@@ -3,11 +3,16 @@
 #include "Ogre.h"
 #include "door.h"
 #include <algorithm>
+#include "OgreOverlayManager.h"
 
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
 {
 
+}
+
+Level::~Level() {
+	interactableObjects.clear();
 }
 
 void Level::tick(gkScalar delta)
@@ -16,49 +21,61 @@ void Level::tick(gkScalar delta)
 	bool playerWantsToUse = false;
 
 	player->tick(playerWantsToUse);
+	
+	Ogre::ResourceGroupManager::getSingletonPtr();
+	Ogre::OverlayManager*   mg = Ogre::OverlayManager::getSingletonPtr();
+	Ogre::Overlay*         ov = mg->getByName("TestScriptOverlay");
 
-	if (playerWantsToUse){
-		gkWindow* mainWindow = gkWindowSystem::getSingletonPtr()->getMainWindow();
-		Ogre::Ray ray(player->getView()->getViewPosition(), -(player->getView()->getViewDirection()));
-		//Ogre::Ray ray = player->getView()->getView()->getCamera()->getCameraToViewportRay((mainWindow->getWidth()/2),(-mainWindow->getHeight()/2));
-//		player->getObj()->setLinearVelocity(2 * ray.getDirection());
-		
-		Ogre::RaySceneQuery* rayQuery = m_scene->getManager()->createRayQuery(ray);
-		rayQuery->setSortByDistance(true);
+	gkWindow* mainWindow = gkWindowSystem::getSingletonPtr()->getMainWindow();
+	Ogre::Ray ray(player->getView()->getViewPosition(), -(player->getView()->getViewDirection()));
+	//Ogre::Ray ray = player->getView()->getView()->getCamera()->getCameraToViewportRay((mainWindow->getWidth()/2),(-mainWindow->getHeight()/2));
+	//		player->getObj()->setLinearVelocity(2 * ray.getDirection());
 
-		Ogre::RaySceneQueryResult& result = rayQuery->execute();
+	Ogre::RaySceneQuery* rayQuery = m_scene->getManager()->createRayQuery(ray);
+	rayQuery->setSortByDistance(true);
 
-		Ogre::RaySceneQueryResult::iterator resultIterator, endOfResult;
+	Ogre::RaySceneQueryResult& result = rayQuery->execute();
 
-//		std::cout << "Size of ray result: " << result.size() << std::endl;
-		
-		endOfResult = std::remove_if(result.begin(), result.end(), [](Ogre::RaySceneQueryResultEntry resultObj) {
-				return(resultObj.distance == 0 || resultObj.distance > 1);
+	Ogre::RaySceneQueryResult::iterator resultIterator, endOfResult;
+
+	//		std::cout << "Size of ray result: " << result.size() << std::endl;
+
+	endOfResult = std::remove_if(result.begin(), result.end(), [](Ogre::RaySceneQueryResultEntry resultObj) {
+		return(resultObj.distance == 0 || resultObj.distance > 1);
+	}
+	);
+
+	InteractableObject* objectToInteract = NULL;
+
+	for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
+		gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
+
+
+		for (auto currentObj = interactableObjects.begin(); currentObj != interactableObjects.end(); ++currentObj) {
+			InteractableObject* currentObject = (*currentObj);
+
+			if (currentObject->getObj() == object) {
+				objectToInteract = currentObject;
+				break;
 			}
-		);
-
-		InteractableObject* objectToInteract = NULL;
-
-		for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
-			gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
-			
-
-			for (auto currentObj = interactableObjects.begin(); currentObj != interactableObjects.end(); ++currentObj) {
-				InteractableObject* currentObject = (*currentObj);
-				
-				if (currentObject->getObj() == object) {
-					objectToInteract = currentObject;
-					break;
-				}
-			}
-
-//			std::cout << "Distance to Object: " << resultIterator->distance << std::endl;
-//			std::cout << "Object name: " << resultIterator->movable->getName() << std::endl;
 		}
 
-		if (objectToInteract != NULL)
-			objectToInteract->interact();
+		//			std::cout << "Distance to Object: " << resultIterator->distance << std::endl;
+		//			std::cout << "Object name: " << resultIterator->movable->getName() << std::endl;
 	}
+	if (objectToInteract != NULL){
+		ov->show();
+		if (playerWantsToUse){
+			objectToInteract->interact();
+		}
+	}
+
+	else
+	{
+		ov->hide();
+	}
+
+	delete rayQuery;
 }
 
 void Level::loadLevel()

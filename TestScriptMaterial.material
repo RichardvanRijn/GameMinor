@@ -1,0 +1,14 @@
+material TestScriptMaterial
+{
+	technique 
+	{
+		pass
+		{
+			texture_unit 
+			{
+				texture	buttone.png
+				scale 1 1
+			}
+		}
+	}
+}
