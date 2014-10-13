@@ -58,8 +58,12 @@ void Level::tick(gkScalar delta)
 
 	if (objectToInteract != NULL){
 		ov->show();
-		if (playerWantsToUse)
-			objectToInteract->interact();
+		if (playerWantsToUse) {
+			if (objectToInteract->isPickable())
+				player->setPickedUpItem(objectToInteract);
+			else
+				objectToInteract->interact();
+		}
 	}
 	else
 		ov->hide();
@@ -88,5 +92,5 @@ void Level::loadLevel()
 
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Pan.001"), true));
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
-	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), "RaamAction"));
+	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"),false, "RaamAction"));
 }
