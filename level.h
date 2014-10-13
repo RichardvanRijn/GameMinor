@@ -14,7 +14,7 @@ private:
 
 public: 
     Level(char* lvlPath);
-
+	~Level();
 	void tick(gkScalar delta); 
     void loadLevel();
 }; 

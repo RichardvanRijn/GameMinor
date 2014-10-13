@@ -25,5 +25,5 @@ void Controller::loadLevel()
 void Controller::tick(gkScalar delta)
 {    
 	if (m_keyboard->isKeyDown(KC_ESCKEY))
-		gkEngine::getSingleton().requestExit();    
+		gkEngine::getSingleton().requestExit();   
 }
