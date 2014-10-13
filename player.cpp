@@ -12,7 +12,7 @@ Player::Player(gkGameObject* object, gkCamera* cam) :
 	GameObject(object)
 {	
 	//view = new View(cam);
-	view = new View(cam, 0.6, -.5, .8);
+	view = new View(cam, 0.8, -.5, .8);
 }
 
 Player::~Player()
