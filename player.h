@@ -25,6 +25,7 @@ public:
 	void tick(bool& wantsToUse);
 
 	View* getView() const;
+	InteractableObject* getPickedUpItem() const;
 
 private:
 	View* view;

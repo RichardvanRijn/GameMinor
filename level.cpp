@@ -23,27 +23,42 @@ void Level::tick(gkScalar delta)
 
 	player->tick(playerWantsToUse);
 	
-	Ogre::ResourceGroupManager::getSingletonPtr();
-	Ogre::OverlayManager*   mg = Ogre::OverlayManager::getSingletonPtr();
-	Ogre::Overlay*         ov = mg->getByName("TestScriptOverlay");
+	if (m_keyboard->isKeyDown(KC_GKEY) && player->getPickedUpItem() != NULL)
+		player->dropItem();
 
-	gkWindow* mainWindow = gkWindowSystem::getSingletonPtr()->getMainWindow();
+
+	Ogre::ResourceGroupManager::getSingletonPtr();
+	Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
+	Ogre::Overlay* ov = mg->getByName("TestScriptOverlay");
+
 	Ogre::Ray ray(player->getView()->getViewPosition(), -(player->getView()->getViewDirection()));
 	Ogre::RaySceneQuery* rayQuery = m_scene->getManager()->createRayQuery(ray);
 	rayQuery->setSortByDistance(true);
 
 	Ogre::RaySceneQueryResult& result = rayQuery->execute();
-
 	Ogre::RaySceneQueryResult::iterator resultIterator, endOfResult;
 
-	endOfResult = std::remove_if(result.begin(), result.end(), [](Ogre::RaySceneQueryResultEntry resultObj) {
-		return(resultObj.distance == 0 || resultObj.distance > 1);
+	InteractableObject* playerObject = player->getPickedUpItem();
+	gkScene* scene = m_scene;
+
+	if (playerObject != NULL) {
+		endOfResult = std::remove_if(result.begin(), result.end(), [scene, playerObject](Ogre::RaySceneQueryResultEntry resultObj) {
+			return(resultObj.distance == 0 || resultObj.distance > 1 || scene->getObject(resultObj.movable->getName()) == playerObject->getObj());
 		}
-	);
+		);
+	}
+	else {
+		endOfResult = std::remove_if(result.begin(), result.end(), [scene, playerObject](Ogre::RaySceneQueryResultEntry resultObj) {
+			return(resultObj.distance == 0 || resultObj.distance > 1);
+		}
+		);
+	}
 
 	InteractableObject* objectToInteract = NULL;
 
 	for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
+		std::cout << "Object: " + resultIterator->movable->getName() << ", distance: " << resultIterator->distance << std::endl;
+		
 		gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
 
 		for (auto currentObj = interactableObjects.begin(); currentObj != interactableObjects.end(); ++currentObj) {
@@ -92,5 +107,5 @@ void Level::loadLevel()
 
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Pan.001"), true));
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
-	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"),false, "RaamAction"));
+	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction"));
 }

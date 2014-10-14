@@ -19,7 +19,8 @@ public:
 	void setViewHeight(float height);
 
 	void moveView();
-	
+	void observeSurroundings();
+
 	bool mouseIsMoved();
 
 	gkCamera* const getView() const;

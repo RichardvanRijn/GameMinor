@@ -11,9 +11,9 @@ Raam::Raam(gkGameObject* object, bool pickable, const char* animName) :
 	door = getObj()->getAnimationPlayer(animName);
 }
 
-
 Raam::~Raam()
 {
+
 }
 
 void Raam::interact(){

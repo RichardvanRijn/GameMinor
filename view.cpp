@@ -2,6 +2,7 @@
 #include "gkEngine.h"
 #include "OgreKit.h"
 #include "gkApplication.h"
+#include "viewdetection.h"
 
 const gkScalar View::tick = gkAppData::gkFixedTickDelta * .25f;
 
@@ -47,6 +48,13 @@ void View::setThreshold(const float upThreshold, const float downThreshold) {
 
 void View::setViewControl(gkMouse* control) {
 	mouse = control;
+}
+
+void View::observeSurroundings() {
+	ViewDetection detector(getView()->getOwner()->getManager(), view->getPosition(), getViewDirection());
+	
+	std::pair<DetectionResult, DetectionIterator&> result = detector.detectObjects();
+
 }
 
 void View::moveView() {

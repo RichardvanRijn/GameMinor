@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 	gkLogger::enable("AppCppDemo.log", GK_CPP_VERBOSE_LOG);
 	gkUserDefs prefs;
 	prefs.rendersystem = OGRE_RS_D3D9;
-    prefs.fullscreen = true;
+    prefs.fullscreen = false;
     prefs.wintitle = "Game";
     prefs.debugFps = true;
 	gkEngine eng(&prefs);
