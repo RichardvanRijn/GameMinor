@@ -91,6 +91,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="raam.cpp" />
     <ClCompile Include="view.cpp" />
+    <ClCompile Include="viewdetection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
@@ -102,6 +103,7 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="raam.h" />
     <ClInclude Include="view.h" />
+    <ClInclude Include="viewdetection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

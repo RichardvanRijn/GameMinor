@@ -88,13 +88,20 @@ bool Player::interact(){
 	return (keyboard->isKeyDown(KC_EKEY));
 }
 
+bool Player::isMoveKeyPressed(){
+	if (keyboard->isKeyDown(KC_DKEY) || keyboard->isKeyDown(KC_AKEY) || keyboard->isKeyDown(KC_WKEY) || keyboard->isKeyDown(KC_SKEY))
+		return true;
+	else
+		return false;
+}
+
 void Player::tick() {
 	getView()->setViewpoint(getObj()->getWorldPosition());
 	
 	if (view->mouseIsMoved())
 		view->moveView();
 	
-	if (keyboard->text > 0)	
+	if (isMoveKeyPressed())
 		move();	
 	else
 		stopMoving();

@@ -42,6 +42,9 @@
     <ClCompile Include="raam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="viewdetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="raam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="viewdetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
