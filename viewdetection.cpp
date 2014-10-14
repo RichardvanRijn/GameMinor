@@ -33,6 +33,8 @@ std::pair<DetectionResult, DetectionIterator&> ViewDetection::detectObjects() {
 	return std::make_pair(result, endOfResult);
 }
 
+//extra comment
+
 DetectionIterator& ViewDetection::filterObjects(DetectionResult& result) {	
 	return result.begin();
 	//return(std::remove_if(result.begin(), result.end(), positionedInDistance));
