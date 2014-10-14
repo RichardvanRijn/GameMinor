@@ -19,6 +19,7 @@ public:
 
 	void dropItem();
 
+	bool isMoveKeyPressed();
 	void move();
 	void stopMoving();
 	void tick();
