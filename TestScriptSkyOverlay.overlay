@@ -1,0 +1,10 @@
+TestScriptSkyOverlay
+{
+    zorder 300
+	
+	container Panel(TestScriptSkyOverlay/ScriptPanelElement)
+	{
+		metrics_mode pixels
+		material TestScriptSky
+	}
+}

@@ -18,12 +18,15 @@ public:
 	void setItemHoldPosition(gkVector3 position);
 
 	void dropItem();
+	void trowItem();
 
 	bool isMoveKeyPressed();
 	void move();
 	void stopMoving();
 	void tick();
 	void tick(bool& wantsToUse);
+
+	void toggleCrouch();
 
 	View* getView() const;
 	InteractableObject* getPickedUpItem() const;
@@ -39,4 +42,3 @@ private:
 	float moveSpeed;
 	gkVector3 itemPosition;
 };
-

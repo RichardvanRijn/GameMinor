@@ -32,6 +32,13 @@ void Player::dropItem() {
 	pickedUpItem = NULL;
 }
 
+void Player::trowItem(){
+
+	pickedUpItem->getObj()->translate(-2 * view->getViewDirection());
+	pickedUpItem->getObj()->setLinearVelocity(gkVector3(0, 0, -0.01));
+	pickedUpItem = NULL;
+}
+
 void Player::setMoveSpeed(float speed) {
 	moveSpeed = speed;
 }
@@ -96,6 +103,17 @@ bool Player::isMoveKeyPressed(){
 		return false;
 }
 
+void Player::toggleCrouch(){
+	if (view->getViewHeight() >= 0.8)
+	{
+		view->setViewHeight(0.4);
+	}
+	else
+	{
+		view->setViewHeight(0.8);
+	}
+}
+
 void Player::tick() {
 	getView()->setViewpoint(getObj()->getWorldPosition());
 	
@@ -106,6 +124,11 @@ void Player::tick() {
 		move();	
 	else
 		stopMoving();
+	
+	if (keyboard->isKeyDown(KC_CKEY)){
+		toggleCrouch();
+		keyboard->clearKey(KC_CKEY);
+	}
 
 	if (pickedUpItem != NULL) {
 		pickedUpItem->getObj()->setPosition(view->getViewPosition() -view->getViewDirection());

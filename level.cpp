@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "OgreOverlayManager.h"
 
+#include "OgreQuaternion.h"
+
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
 {
@@ -26,6 +28,8 @@ void Level::tick(gkScalar delta)
 	if (m_keyboard->isKeyDown(KC_GKEY) && player->getPickedUpItem() != NULL)
 		player->dropItem();
 
+	//if (m_keyboard->isKeyDown(KC_FKEY) && player->getPickedUpItem() != NULL)
+	//	player->trowItem();
 
 	Ogre::ResourceGroupManager::getSingletonPtr();
 	Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
@@ -57,7 +61,7 @@ void Level::tick(gkScalar delta)
 	InteractableObject* objectToInteract = NULL;
 
 	for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
-		std::cout << "Object: " + resultIterator->movable->getName() << ", distance: " << resultIterator->distance << std::endl;
+		//std::cout << "Object: " + resultIterator->movable->getName() << ", distance: " << resultIterator->distance << std::endl;
 		
 		gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
 
@@ -108,4 +112,6 @@ void Level::loadLevel()
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Pan.001"), true));
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
 	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction"));
+
+	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707,.707,0,0));
 }

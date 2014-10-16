@@ -28,8 +28,11 @@ View::~View()
 }
 
 void View::setViewpoint(gkVector3 pos) {
+	gkVector3 temp = getViewDirection();
+	pos.x += .2 * temp.x;
+	pos.y += .2 * temp.y;
 	pos.z += viewHeight;
-	
+
 	view->setPosition(pos);
 }
 
@@ -86,4 +89,8 @@ gkVector3 View::getViewDirection() const {
 
 gkVector3 View::getViewPosition() const{
 	return(view->getPosition());
+}
+
+float View::getViewHeight() const{
+	return(viewHeight);
 }
