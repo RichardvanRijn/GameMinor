@@ -28,6 +28,8 @@ public:
 	gkVector3 getViewDirection() const;
 	gkVector3 getViewPosition() const;
 
+	float getViewHeight() const;
+
 private:
 	float viewHeight;
 	float thresholdUp;

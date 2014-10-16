@@ -1,0 +1,14 @@
+material TestScriptSky
+{
+	technique 
+	{
+		pass
+		{
+			texture_unit 
+			{
+				texture	Sky.png
+				scale 1 1
+			}
+		}
+	}
+}
