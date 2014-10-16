@@ -113,5 +113,5 @@ void Level::loadLevel()
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
 	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction"));
 
-	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707,.707,0,0));
+	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 2, 1, 1000, true, Ogre::Quaternion(.707,.707,0,0), 5,5);
 }
