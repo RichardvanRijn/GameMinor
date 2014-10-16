@@ -65,12 +65,12 @@ void Player::move() {
 	}
 
 	if (keyboard->isKeyDown(KC_AKEY)) {
-		totalSpeed.x += moveSpeed * viewDirection.y * 0.4;
-		totalSpeed.y += -moveSpeed * viewDirection.x * 0.4;		
+		totalSpeed.x += moveSpeed * viewDirection.y;
+		totalSpeed.y += -moveSpeed * viewDirection.x;		
 	}
 	else if (keyboard->isKeyDown(KC_DKEY)) {
-		totalSpeed.x += -moveSpeed * viewDirection.y * 0.4;
-		totalSpeed.y += moveSpeed * viewDirection.x * 0.4;
+		totalSpeed.x += -moveSpeed * viewDirection.y;
+		totalSpeed.y += moveSpeed * viewDirection.x;
 	}
 			
 	totalSpeed.z = buffer.z;
@@ -84,20 +84,20 @@ void Player::stopMoving() {
 	getObj()->setLinearVelocity(gkVector3(0, 0, reverse.z));
 }
 
-bool Player::interact(){
+bool Player::wantsToInteract(){
 	return (keyboard->isKeyDown(KC_EKEY));
 }
 
 bool Player::isMoveKeyPressed(){
 	if (keyboard->isKeyDown(KC_DKEY) || keyboard->isKeyDown(KC_AKEY) || keyboard->isKeyDown(KC_WKEY) || keyboard->isKeyDown(KC_SKEY))
 		return true;
-	else
-		return false;
+	
+	return false;
 }
 
 void Player::tick() {
 	getView()->setViewpoint(getObj()->getWorldPosition());
-	
+
 	if (view->mouseIsMoved())
 		view->moveView();
 	
@@ -114,7 +114,14 @@ void Player::tick() {
 void Player::tick(bool& wantsToUse) {
 	Player::tick();
 
-	wantsToUse = interact();
+	wantsToUse = wantsToInteract();
+}
+
+void Player::tick(DetectionResult& spottedObjects) {
+	Player::tick();
+
+	if (view != NULL)
+		spottedObjects = view->observeSurroundings();
 }
 
 View* Player::getView() const {

@@ -2,7 +2,6 @@
 #include "gkEngine.h"
 #include "OgreKit.h"
 #include "gkApplication.h"
-#include "viewdetection.h"
 
 const gkScalar View::tick = gkAppData::gkFixedTickDelta * .25f;
 
@@ -50,11 +49,17 @@ void View::setViewControl(gkMouse* control) {
 	mouse = control;
 }
 
-void View::observeSurroundings() {
-	ViewDetection detector(getView()->getOwner()->getManager(), view->getPosition(), getViewDirection());
+DetectionResult& View::observeSurroundings() {
+	delete objectDetector;
 	
-	std::pair<DetectionResult, DetectionIterator&> result = detector.detectObjects();
+	objectDetector = new ViewDetection(getView()->getOwner()->getManager(), view->getPosition(), getViewDirection());
+	
+	objectDetector->detectObjects();
 
+	if (objectDetector->objectsSpotted())
+		return objectDetector->getDetectedObjects();
+
+	//return DetectionResult();
 }
 
 void View::moveView() {

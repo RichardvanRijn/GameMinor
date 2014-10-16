@@ -11,12 +11,17 @@ class Level : public Controller
 private:	
 	Player* player;
 	std::vector<InteractableObject*> interactableObjects;
+	bool isInteractable(DetectedObject object) const;
 
 public: 
     Level(char* lvlPath);
 	~Level();
 	void tick(gkScalar delta); 
     void loadLevel();
+	
+	InteractableObject* findInteractableObject(DetectionResult& spottedObjects);
+
+	
 }; 
 
 #endif

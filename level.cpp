@@ -19,11 +19,25 @@ Level::~Level() {
 void Level::tick(gkScalar delta)
 {        
 	Controller::tick(delta);   
-	bool playerWantsToUse = false;
+	DetectionResult spottedObjects;
 
-	player->tick(playerWantsToUse);
+	player->tick(spottedObjects);
 	
-	if (m_keyboard->isKeyDown(KC_GKEY) && player->getPickedUpItem() != NULL)
+	/*if (spottedObjects.size() != 0) {
+		InteractableObject* objectToInteract = findInteractableObject(spottedObjects);
+
+		bool playerWantsToUse = false;
+		player->tick(playerWantsToUse);
+
+		if (playerWantsToUse) {
+			if (objectToInteract->isPickable())
+				player->setPickedUpItem(objectToInteract);
+			else
+				objectToInteract->interact();
+		}
+	}*/
+
+	/*if (m_keyboard->isKeyDown(KC_GKEY) && player->getPickedUpItem() != NULL)
 		player->dropItem();
 
 
@@ -83,7 +97,32 @@ void Level::tick(gkScalar delta)
 	else
 		ov->hide();
 
-	delete rayQuery;
+	delete rayQuery;*/
+}
+
+InteractableObject* Level::findInteractableObject(DetectionResult& spottedObjects) {		
+	DetectionIterator positionOfObject;//std::find_if(spottedObjects.begin(), spottedObjects.end(), std::bind1st(std::mem_fun(&Level::isInteractable), this));
+
+	for (positionOfObject = spottedObjects.begin(); positionOfObject != spottedObjects.end(); ++positionOfObject) {
+		gkGameObject* object = m_scene->getObject(positionOfObject->movable->getName());
+
+		for (auto currentObj = interactableObjects.begin(); currentObj != interactableObjects.end(); ++currentObj) {
+			InteractableObject* currentObject = *(currentObj);
+
+			if (currentObject->getObj() == object)
+				return currentObject;
+		}
+	}
+
+	return NULL;
+
+}
+
+bool Level::isInteractable(DetectedObject object) const {
+	return(std::find_if(interactableObjects.begin(), interactableObjects.end(), [object](InteractableObject* interactable) {
+			return(interactable->getObjName() == object.movable->getName());
+		}
+	) != interactableObjects.end());
 }
 
 void Level::loadLevel()

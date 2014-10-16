@@ -24,6 +24,7 @@ public:
 	void stopMoving();
 	void tick();
 	void tick(bool& wantsToUse);
+	void tick(DetectionResult& spottedObjects);
 
 	View* getView() const;
 	InteractableObject* getPickedUpItem() const;
@@ -34,7 +35,7 @@ private:
 	
 	InteractableObject* pickedUpItem;
 
-	bool interact();
+	bool wantsToInteract();
 
 	float moveSpeed;
 	gkVector3 itemPosition;

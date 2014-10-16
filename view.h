@@ -1,6 +1,7 @@
 #pragma once
 #include "gkCamera.h"
 #include "gkInput.h"
+#include "viewdetection.h"
 
 class View
 {
@@ -19,7 +20,7 @@ public:
 	void setViewHeight(float height);
 
 	void moveView();
-	void observeSurroundings();
+	DetectionResult& observeSurroundings();
 
 	bool mouseIsMoved();
 
@@ -34,6 +35,7 @@ private:
 	float thresholdDown;
 	static const gkScalar tick;
 
+	ViewDetection* objectDetector;
 	gkCamera* view;
 	gkMouse* mouse;
 };

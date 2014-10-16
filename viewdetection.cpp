@@ -1,7 +1,8 @@
 #include "viewdetection.h"
 
 ViewDetection::ViewDetection(Ogre::SceneManager* manager, gkVector3 origin, gkVector3 direction) :
-	viewManager(manager)
+	viewManager(manager),
+	detectedObjects(DetectionResult())
 {
 	detection = new Ogre::Ray(origin, direction);
 }
@@ -9,17 +10,20 @@ ViewDetection::ViewDetection(Ogre::SceneManager* manager, gkVector3 origin, gkVe
 ViewDetection::~ViewDetection()
 {
 	delete detection;
+
+	for (auto iterator = detectedObjects.begin(); iterator != detectedObjects.end(); ++iterator)
+		delete &iterator;
 }
 
 void ViewDetection::setViewDistance(float maxDistance) {
 	viewDistance = maxDistance;
 }
 
-void ViewDetection::setExcludedObjects(const char* *objectNames) {
-
+void ViewDetection::addExcludedObject(const char *objectName) {
+	excludedObjects.push_back(objectName);
 }
 
-std::pair<DetectionResult, DetectionIterator&> ViewDetection::detectObjects() {
+void ViewDetection::detectObjects() {
 	//Ogre::ResourceGroupManager::getSingletonPtr();
 	//Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
 	//Ogre::Overlay* ov = mg->getByName("TestScriptOverlay");
@@ -27,19 +31,35 @@ std::pair<DetectionResult, DetectionIterator&> ViewDetection::detectObjects() {
 	Ogre::RaySceneQuery* rayQuery = viewManager->createRayQuery(*detection);
 	rayQuery->setSortByDistance(true);
 
-	DetectionResult result = rayQuery->execute();
+	DetectionResult& result = rayQuery->execute();
 	DetectionIterator& endOfResult = filterObjects(result);
 
-	return std::make_pair(result, endOfResult);
+	result.erase(endOfResult, result.end() - 1);
+	detectedObjects = result;
 }
 
-//extra comment
+DetectionResult& ViewDetection::getDetectedObjects() const {
+	return detectedObjects;
+}
 
 DetectionIterator& ViewDetection::filterObjects(DetectionResult& result) {	
-	return result.begin();
-	//return(std::remove_if(result.begin(), result.end(), positionedInDistance));
+	DetectionIterator& endOfResult = std::remove_if(result.begin(), result.end(), std::bind1st(std::mem_fun(&ViewDetection::isInvalidObject), this));
+	
+	return endOfResult;
 }
 
-bool ViewDetection::positionedInDistance(Ogre::RaySceneQueryResultEntry& object) const {
+bool ViewDetection::objectsSpotted() const {
+	return(detectedObjects.size() != 0);
+}
+
+bool ViewDetection::isInvalidObject(DetectedObject object) const {
+	return(!positionedInDistance(object) && isExcludedObject(object));
+}
+
+bool ViewDetection::positionedInDistance(DetectedObject object) const {
 	return(object.distance != 0 && object.distance <= viewDistance);
+}
+
+bool ViewDetection::isExcludedObject(DetectedObject object) const {
+	return(std::find(excludedObjects.begin(), excludedObjects.end(), object.movable->getName().c_str()) != excludedObjects.end());
 }
