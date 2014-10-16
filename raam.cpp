@@ -1,8 +1,9 @@
 #include "raam.h"
+#include "door.h"
 
 
 Raam::Raam(gkGameObject* object, bool pickable, const char* animName) :
-	InteractableObject(object, pickable),
+	UseableObject(object, pickable),
 	isOpened(false),
 	canBeUsed(false),
 	blocked(false)

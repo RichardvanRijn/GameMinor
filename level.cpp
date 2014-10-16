@@ -1,8 +1,8 @@
 #include "level.h"
 #include <iostream>
 #include "Ogre.h"
-#include "door.h"
 #include "raam.h"
+#include "door.h"
 #include <algorithm>
 #include "OgreOverlayManager.h"
 
@@ -13,11 +13,18 @@ Level::Level(char* lvlPath) :
 }
 
 Level::~Level() {
-	interactableObjects.clear();
+	UseableObjects.clear();
 }
 
 void Level::tick(gkScalar delta)
 {        
+	
+	//GrannyGuard->doList();
+	
+	if (!toDoList.empty() && GrannyGuard->getState() == IDLE){
+		GrannyGuard->setState(BUSY);
+	}
+
 	Controller::tick(delta);   
 	bool playerWantsToUse = false;
 
@@ -38,7 +45,7 @@ void Level::tick(gkScalar delta)
 	Ogre::RaySceneQueryResult& result = rayQuery->execute();
 	Ogre::RaySceneQueryResult::iterator resultIterator, endOfResult;
 
-	InteractableObject* playerObject = player->getPickedUpItem();
+	UseableObject* playerObject = player->getPickedUpItem();
 	gkScene* scene = m_scene;
 
 	if (playerObject != NULL) {
@@ -54,15 +61,15 @@ void Level::tick(gkScalar delta)
 		);
 	}
 
-	InteractableObject* objectToInteract = NULL;
+	UseableObject* objectToInteract = NULL;
 
 	for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
 		std::cout << "Object: " + resultIterator->movable->getName() << ", distance: " << resultIterator->distance << std::endl;
 		
 		gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
 
-		for (auto currentObj = interactableObjects.begin(); currentObj != interactableObjects.end(); ++currentObj) {
-			InteractableObject* currentObject = (*currentObj);
+		for (auto currentObj = UseableObjects.begin(); currentObj != UseableObjects.end(); ++currentObj) {
+			UseableObject* currentObject = (*currentObj);
 
 			if (currentObject->getObj() == object) {
 				objectToInteract = currentObject;
@@ -86,6 +93,21 @@ void Level::tick(gkScalar delta)
 	delete rayQuery;
 }
 
+UseableObject* Level::giveFirstProblem() {
+	if (!toDoList.empty())
+		return toDoList.front();
+	else
+		return NULL;
+}
+
+void Level::addObject(UseableObject* object){
+	toDoList.push_back(object);
+}
+
+deque <UseableObject*>& Level::giveList(){
+	return toDoList;
+}
+
 void Level::loadLevel()
 {
     Controller::loadLevel();	
@@ -102,10 +124,10 @@ void Level::loadLevel()
 		std::string anima = "Deuropen.00";
 		anima += std::to_string(i);
 		const char* anim = anima.c_str();	
-		interactableObjects.push_back(new Door(m_scene->getObject(name), false, anim));
+		UseableObjects.push_back(new Door(m_scene->getObject(name), false, anim));
 	}
 
-	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Pan.001"), true));
-	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
-	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction"));
+	UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
+	UseableObjects.push_back(new UseableObject(m_scene->getObject("Muis"), true));
+	//UseableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction"));
 }

@@ -2,8 +2,8 @@
 #define _GameObject_h_
 
 #include "gkEngine.h"
-#include "main.h"
-#include "Controller.h"
+//#include "main.h"
+//#include "Controller.h"
 
 
 class GameObject
@@ -28,5 +28,4 @@ private:
 
 };
 
-
-#endif
+#endif //_GameObject_h_

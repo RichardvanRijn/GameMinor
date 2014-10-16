@@ -1,7 +1,7 @@
-#pragma once
-#include "interactableobject.h"
+//#pragma once
+#include "useableobject.h"
 
-class Raam : public InteractableObject
+class Raam : public UseableObject
 {
 public:
 	Raam(gkGameObject* object, bool pickable, const char* animName);

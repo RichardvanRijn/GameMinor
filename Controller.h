@@ -6,6 +6,7 @@
 #include "gkInput.h"
 #include "GameObject.h"
 #include "OgreKit.h"
+#include "DomSystem.h"
 
 class Controller : public gkEngine::Listener,
 	public gkInstancedManager::InstancedListener,

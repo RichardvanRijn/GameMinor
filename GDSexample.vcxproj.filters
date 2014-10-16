@@ -36,13 +36,22 @@
     <ClCompile Include="door.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="interactableobject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="raam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="viewdetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DomSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="useableobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PickableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractableObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,13 +77,22 @@
     <ClInclude Include="door.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="interactableobject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="raam.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="viewdetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DomSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="useableobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PickableObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractableObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
