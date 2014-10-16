@@ -4,6 +4,7 @@ material TestScriptMaterial
 	{
 		pass
 		{
+			scene_blend alpha_blend
 			texture_unit 
 			{
 				texture	buttone.png
