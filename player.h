@@ -19,6 +19,7 @@ public:
 
 	void dropItem();
 	void trowItem();
+	void releaseItem();
 
 	bool isMoveKeyPressed();
 	void move();

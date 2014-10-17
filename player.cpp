@@ -29,6 +29,11 @@ void Player::setItemHoldPosition(gkVector3 position) {
 
 void Player::dropItem() {
 	pickedUpItem->getObj()->setLinearVelocity(gkVector3(0, 0, -0.01));
+
+	Player::releaseItem();
+}
+
+void Player::releaseItem() {
 	pickedUpItem = NULL;
 }
 

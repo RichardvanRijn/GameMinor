@@ -80,8 +80,19 @@ void Level::tick(gkScalar delta)
 		if (playerWantsToUse) {
 			if (objectToInteract->isPickable())
 				player->setPickedUpItem(objectToInteract);
-			else
-				objectToInteract->interact();
+			else {
+				Raam *window = NULL;
+				InteractableObject* playerItem = player->getPickedUpItem();
+
+				if ((window = dynamic_cast<Raam*>(objectToInteract)) != NULL && playerItem != NULL && window->isOpen() && !window->hasObstruction()) {
+					gkGameObject* obstructionObject = player->getPickedUpItem()->getObj();
+					interactableObjects.erase(std::find(interactableObjects.begin(), interactableObjects.end(), player->getPickedUpItem()));
+					player->releaseItem();
+					window->setObstruction(obstructionObject);					
+				}
+				else
+					objectToInteract->interact();
+			}
 		}
 	}
 	else
@@ -111,7 +122,9 @@ void Level::loadLevel()
 
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Pan.001"), true));
 	interactableObjects.push_back(new InteractableObject(m_scene->getObject("Muis"), true));
-	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction"));
+	interactableObjects.push_back(new InteractableObject(m_scene->getObject("toetsenbord"), true));
+
+	interactableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction", m_scene->getObject("WindowBox")));
 
 	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707,.707,0,0));
 }

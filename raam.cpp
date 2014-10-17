@@ -1,11 +1,13 @@
 #include "raam.h"
 
 
-Raam::Raam(gkGameObject* object, bool pickable, const char* animName) :
+Raam::Raam(gkGameObject* object, bool pickable, const char* animName, gkGameObject* pH) :
 	InteractableObject(object, pickable),
 	isOpened(false),
-	canBeUsed(false),
-	blocked(false)
+	canBeUsed(true),
+	blocked(false),
+	placeHolder(pH),
+	obstructionObject(NULL)
 {
 	getObj()->addAnimation(animName);
 	door = getObj()->getAnimationPlayer(animName);
@@ -16,20 +18,42 @@ Raam::~Raam()
 
 }
 
-void Raam::interact(){
+void Raam::setObstruction(gkGameObject* obstruction) {
+	obstructionObject = obstruction;
+
+	obstructionObject->setPosition(placeHolder->getWorldPosition());
+	obstructionObject->setOrientation(placeHolder->getOrientation());
+	
+	//if (obstructionObject->getScale() > placeHolder->getScale())
+		//obstructionObject->setScale(placeHolder->getScale());
+
+	Raam::block();
+}
+
+bool Raam::hasObstruction() const {
+	return (obstructionObject != NULL);
+}
+
+void Raam::removeObstruction() {
+	obstructionObject = NULL;
+
+	Raam::unBlock();
+}
+
+void Raam::interact(){		
 	if ((door->isDone() || door->getTimePosition() == 0) && blocked == false){
 		canBeUsed = true;
 	}
 	if (canBeUsed == true && isOpened == false){
 		door->reset();
 		door->setMode(AK_ACT_END);
-		getObj()->playAnimation(door, 0);
+		getObj()->playAnimation(door, 0);	
 		isOpened = true;
 		canBeUsed = false;
 	}
 	else if (canBeUsed == true && isOpened == true){
 		door->reset();
-		door->setMode(AK_ACT_INVERSE);
+		door->setMode(AK_ACT_INVERSE);		
 		getObj()->playAnimation(door, 0);
 		isOpened = false;
 		canBeUsed = false;
@@ -50,4 +74,8 @@ void Raam::block(){
 
 void Raam::unBlock(){
 	blocked = false;
+}
+
+gkGameObject* Raam::getPlaceHolder() const {
+	return placeHolder;
 }
