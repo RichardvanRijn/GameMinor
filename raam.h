@@ -8,6 +8,7 @@ public:
 	virtual ~Raam();
 
 	void interact();
+	void act(bool toOpen);
 
 	bool isOpen();
 	bool isBlocked();
@@ -20,8 +21,10 @@ public:
 
 	void block();
 	void unBlock();
-
+	
+	void tick();
 	gkGameObject* getPlaceHolder() const;
+	gkGameObject* getObstruction() const;
 
 private:
 	gkAnimationPlayer* door;

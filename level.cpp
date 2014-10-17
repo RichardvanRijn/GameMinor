@@ -4,7 +4,7 @@
 #include "raam.h"
 #include "door.h"
 #include "useableobject.h"
-
+#include <regex>
 #include <algorithm>
 #include "OgreOverlayManager.h"
 
@@ -34,11 +34,31 @@ void Level::tick(gkScalar delta)
 
 	player->tick(playerWantsToUse);
 	
+	for (UINT8 i = 0; i != UseableObjects.size(); ++i) {
+		UseableObjects[i]->tick();
+	}
+
 	if (m_keyboard->isKeyDown(KC_GKEY) && player->getPickedUpItem() != NULL)
 		player->dropItem();
 
-	//if (m_keyboard->isKeyDown(KC_FKEY) && player->getPickedUpItem() != NULL)
-	//	player->trowItem();
+	Raam* window = NULL;
+	
+	auto iteratorToWindow = std::find_if(UseableObjects.begin(), UseableObjects.end(), [](UseableObject* object) {
+			return ((dynamic_cast<Raam*>(object)) != NULL);
+		}
+	);
+
+	if (iteratorToWindow != UseableObjects.end())  {
+		window = dynamic_cast<Raam*>(*iteratorToWindow);
+
+		if (m_keyboard->isKeyDown(KC_FKEY) && window->isBlocked()) {
+			std::cout << "Komt in if" << std::endl;
+			gkGameObject* obstruction = window->getObstruction();
+			window->removeObstruction();
+			UseableObjects.push_back(new UseableObject(obstruction, true));
+		}
+			
+	}
 
 	Ogre::ResourceGroupManager::getSingletonPtr();
 	Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
@@ -144,9 +164,20 @@ void Level::loadLevel()
 		UseableObjects.push_back(new Door(m_scene->getObject(name), false, anim));
 	}
 
+	/*for (int i = 0; i < 4; i++) {
+		std::string name = "Raam.00";
+		name += std::to_string(i);
+		std::string anima = "RaamAction.00";
+		anima += std::to_string(i);
+		std::string windowBox = "WindowBox.00";
+		windowBox += std::to_string(i);
+		const char* anim = anima.c_str();
+		UseableObjects.push_back(new Raam(m_scene->getObject(name), false, anim, m_scene->getObject(windowBox)));	
+	}*/
+
 	UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
 	UseableObjects.push_back(new UseableObject(m_scene->getObject("Muis"), true));
-	UseableObjects.push_back(new Raam(m_scene->getObject("Raam"), false, "RaamAction", m_scene->getObject("WindowBox")));
-
+	UseableObjects.push_back(new Raam(m_scene->getObject("Raam.000"), false, "RaamAction.000", m_scene->getObject("WindowBox.000")));
+	
 	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707,.707,0,0));
 }

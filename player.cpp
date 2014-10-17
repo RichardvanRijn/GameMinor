@@ -78,12 +78,12 @@ void Player::move() {
 	}
 
 	if (keyboard->isKeyDown(KC_AKEY)) {
-		totalSpeed.x += moveSpeed * viewDirection.y * 0.4;
-		totalSpeed.y += -moveSpeed * viewDirection.x * 0.4;		
+		totalSpeed.x += moveSpeed * viewDirection.y;
+		totalSpeed.y += -moveSpeed * viewDirection.x;		
 	}
 	else if (keyboard->isKeyDown(KC_DKEY)) {
-		totalSpeed.x += -moveSpeed * viewDirection.y * 0.4;
-		totalSpeed.y += moveSpeed * viewDirection.x * 0.4;
+		totalSpeed.x += -moveSpeed * viewDirection.y;
+		totalSpeed.y += moveSpeed * viewDirection.x;
 	}
 			
 	totalSpeed.z = buffer.z;
@@ -113,10 +113,12 @@ void Player::toggleCrouch(){
 	if (view->getViewHeight() >= 0.8)
 	{
 		view->setViewHeight(0.4);
+		setMoveSpeed(moveSpeed * 0.5);
 	}
 	else
 	{
 		view->setViewHeight(0.8);
+		setMoveSpeed(2);
 	}
 }
 
