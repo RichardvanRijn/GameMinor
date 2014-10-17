@@ -1,19 +1,10 @@
 #pragma once
-#include "GameObject.h"
+#include "useableobject.h"
 
-class Player;
-
-class InteractableObject : public GameObject
+class InteractableObject : public UseableObject
 {
 public:
 	InteractableObject(gkGameObject* object, bool canBePicked);
-	virtual ~InteractableObject();
-
-	virtual void interact();
-	bool isPickable();
-
-private:
-	bool pickable;
-
+	~InteractableObject();
 };
 

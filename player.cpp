@@ -1,5 +1,5 @@
 #include "player.h"
-#include "interactableobject.h"
+#include "useableobject.h"
 
 Player::Player(gkGameObject* object) :
 	GameObject(object),
@@ -59,7 +59,7 @@ void Player::setView(gkCamera* cam) {
 		view = new View(cam);
 }
 
-void Player::setPickedUpItem(InteractableObject* item) {
+void Player::setPickedUpItem(UseableObject* item) {
 	pickedUpItem = item;
 }
 
@@ -108,6 +108,7 @@ bool Player::isMoveKeyPressed(){
 		return false;
 }
 
+
 void Player::toggleCrouch(){
 	if (view->getViewHeight() >= 0.8)
 	{
@@ -119,14 +120,14 @@ void Player::toggleCrouch(){
 	}
 }
 
-void Player::tick() {
+void Player::tick(bool& wantsToUse) {
 	getView()->setViewpoint(getObj()->getWorldPosition());
-	
+
 	if (view->mouseIsMoved())
 		view->moveView();
-	
+
 	if (isMoveKeyPressed())
-		move();	
+		move();
 	else
 		stopMoving();
 	
@@ -136,12 +137,8 @@ void Player::tick() {
 	}
 
 	if (pickedUpItem != NULL) {
-		pickedUpItem->getObj()->setPosition(view->getViewPosition() -view->getViewDirection());
+		pickedUpItem->getObj()->setPosition(view->getViewPosition() - view->getViewDirection());
 	}
-}
-
-void Player::tick(bool& wantsToUse) {
-	Player::tick();
 
 	wantsToUse = interact();
 }
@@ -150,6 +147,6 @@ View* Player::getView() const {
 	return view;
 }
 
-InteractableObject* Player::getPickedUpItem() const {
+UseableObject* Player::getPickedUpItem() const {
 	return pickedUpItem;
 }

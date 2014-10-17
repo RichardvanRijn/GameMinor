@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "view.h"
 
-class InteractableObject;
+class UseableObject;
 
 class Player : public GameObject
 {
@@ -14,7 +14,7 @@ public:
 	void setView(gkCamera* cam);
 	void setMoveSpeed(float speed);
 	void setKeyboard(gkKeyboard* board);
-	void setPickedUpItem(InteractableObject* item);
+	void setPickedUpItem(UseableObject* item);
 	void setItemHoldPosition(gkVector3 position);
 
 	void dropItem();
@@ -24,19 +24,18 @@ public:
 	bool isMoveKeyPressed();
 	void move();
 	void stopMoving();
-	void tick();
 	void tick(bool& wantsToUse);
 
 	void toggleCrouch();
 
 	View* getView() const;
-	InteractableObject* getPickedUpItem() const;
+	UseableObject* getPickedUpItem() const;
 
 private:
 	View* view;
 	gkKeyboard* keyboard;	
 	
-	InteractableObject* pickedUpItem;
+	UseableObject* pickedUpItem;
 
 	bool interact();
 

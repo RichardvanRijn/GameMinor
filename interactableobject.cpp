@@ -1,22 +1,12 @@
-#include "interactableobject.h"
+#include "InteractableObject.h"
 
 
-InteractableObject::InteractableObject(gkGameObject* object, bool canBePicked):
-	GameObject(object),
-	pickable(canBePicked)
+InteractableObject::InteractableObject(gkGameObject* object, bool canBePicked) :
+	UseableObject(object, canBePicked)	
 {
-
 }
+
 
 InteractableObject::~InteractableObject()
 {
-
-}
-
-void InteractableObject::interact() {
-
-}
-
-bool InteractableObject::isPickable() {
-	return pickable;
 }
