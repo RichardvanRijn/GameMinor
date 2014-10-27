@@ -8,11 +8,12 @@
 #include "OgreOverlayManager.h"
 #include "DomSystem.h"
 #include "OgreQuaternion.h"
+#include <regex>
 
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
 {
-
+	
 }
 
 Level::~Level() {
@@ -35,12 +36,9 @@ void Level::tick(gkScalar delta)
 	
 	for (UINT8 i = 0; i != UseableObjects.size(); ++i) {
 		UseableObjects[i]->tick();
-	}
+	}	
 
-	if (m_keyboard->isKeyDown(KC_GKEY) && player->getPickedUpItem() != NULL)
-		player->dropItem();
-
-	Raam* window = NULL;
+	/*Raam* window = NULL;
 	
 	auto iteratorToWindow = std::find_if(UseableObjects.begin(), UseableObjects.end(), [](UseableObject* object) {
 			return ((dynamic_cast<Raam*>(object)) != NULL);
@@ -51,13 +49,12 @@ void Level::tick(gkScalar delta)
 		window = dynamic_cast<Raam*>(*iteratorToWindow);
 
 		if (m_keyboard->isKeyDown(KC_FKEY) && window->isBlocked()) {
-			std::cout << "Komt in if" << std::endl;
 			gkGameObject* obstruction = window->getObstruction();
 			window->removeObstruction();
 			UseableObjects.push_back(new UseableObject(obstruction, true));
 		}
 			
-	}
+	}*/
 
 	Ogre::ResourceGroupManager::getSingletonPtr();
 	Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
@@ -89,8 +86,6 @@ void Level::tick(gkScalar delta)
 	UseableObject* objectToInteract = NULL;
 
 	for (resultIterator = result.begin(); resultIterator != endOfResult; resultIterator++) {
-		//std::cout << "Object: " + resultIterator->movable->getName() << ", distance: " << resultIterator->distance << std::endl;
-		
 		gkGameObject* object = m_scene->getObject(resultIterator->movable->getName());
 
 		for (auto currentObj = UseableObjects.begin(); currentObj != UseableObjects.end(); ++currentObj) {
@@ -110,16 +105,23 @@ void Level::tick(gkScalar delta)
 				player->setPickedUpItem(objectToInteract);
 			else {
 				Raam *window = NULL;
-				UseableObject* playerItem = player->getPickedUpItem();
+				std::string objectName = objectToInteract->getObjName();
+				std::tr1::regex trashCanRegex("Prullenbak");
 
-				if ((window = dynamic_cast<Raam*>(objectToInteract)) != NULL && playerItem != NULL && window->isOpen() && !window->hasObstruction()) {
+				if ((window = dynamic_cast<Raam*>(objectToInteract)) != NULL 
+					&& player->getPickedUpItem() != NULL 
+					&& window->isOpen() && !window->hasObstruction()) 
+				{					
 					gkGameObject* obstructionObject = player->getPickedUpItem()->getObj();
 					UseableObjects.erase(std::find(UseableObjects.begin(), UseableObjects.end(), player->getPickedUpItem()));
 					player->releaseItem();
 					window->setObstruction(obstructionObject);					
 				}
-				else
+				else {
+					ov->hide();
 					objectToInteract->interact();
+					std::string string = objectToInteract->getObjName();
+				}
 			}
 		}
 	}
@@ -153,30 +155,46 @@ void Level::loadLevel()
 	player->setMoveSpeed(2);
 	player->setItemHoldPosition(gkVector3(0, -0.4, 0));
 
+	
+
 	player->getView()->setViewControl(m_mouse);
-	for (int i = 0; i < 4; i++){
-		std::string name = "deur.00";
-		name += std::to_string(i);
-		std::string anima = "Deuropen.00";
-		anima += std::to_string(i);
-		const char* anim = anima.c_str();	
-		UseableObjects.push_back(new Door(m_scene->getObject(name), false, anim));
+	bool stop = false;
+
+	for (int i = 0; i != 10; i++){
+		std::string doorName = "deur.";
+		std::string doorAnim = "Deuropen.";
+		std::string windowName = "Raam.";
+		std::string windowAnim = "RaamAction.";
+		std::string windowBoxName = "WindowBox.";
+		std::string panName = "Pan.";
+		std::string counter = "00";
+		
+		counter += std::to_string(i);
+		windowName += counter;
+		windowAnim += counter;
+		windowBoxName += counter;
+		doorName += counter;
+		doorAnim += counter;
+		panName += counter;
+
+		gkGameObject *object = NULL;
+
+		if ((object = m_scene->getObject(doorName)) != NULL) {
+			const char* anim = doorAnim.c_str();
+			UseableObjects.push_back(new Door(object, false, anim));
+		}
+		if ((object = m_scene->getObject(windowName)) != NULL) {
+			const char* anim = windowAnim.c_str();
+			UseableObjects.push_back(new Raam(object, false, anim, m_scene->getObject(windowBoxName)));
+		}
+		if ((object = m_scene->getObject(panName)) != NULL) {
+			UseableObjects.push_back(new UseableObject(object, true));
+		}
 	}
 
-	/*for (int i = 0; i < 4; i++) {
-		std::string name = "Raam.00";
-		name += std::to_string(i);
-		std::string anima = "RaamAction.00";
-		anima += std::to_string(i);
-		std::string windowBox = "WindowBox.00";
-		windowBox += std::to_string(i);
-		const char* anim = anima.c_str();
-		UseableObjects.push_back(new Raam(m_scene->getObject(name), false, anim, m_scene->getObject(windowBox)));	
-	}*/
-
-	UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
+	//UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
 	UseableObjects.push_back(new UseableObject(m_scene->getObject("Muis"), true));
-	UseableObjects.push_back(new Raam(m_scene->getObject("Raam.000"), false, "RaamAction.000", m_scene->getObject("WindowBox.000")));
+	//UseableObjects.push_back(new Raam(m_scene->getObject("Raam.000"), false, "RaamAction.000", m_scene->getObject("WindowBox.000")));
 	
 	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707,.707,0,0));
 }

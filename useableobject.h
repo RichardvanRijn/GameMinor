@@ -19,5 +19,6 @@ private:
 	bool blocked;
 	int timeToUnblock;
 	int timeToUndo;
+	gkVector3 initialPosition;
 
 };

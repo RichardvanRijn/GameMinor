@@ -3,7 +3,8 @@
 
 UseableObject::UseableObject(gkGameObject* object, bool canBePicked):
 	GameObject(object),
-	pickable(canBePicked)
+	pickable(canBePicked),
+	initialPosition(object->getPosition())
 {
 
 }
@@ -18,7 +19,9 @@ void UseableObject::interact() {
 }
 
 void UseableObject::tick() {
-
+	if (getObj()->getWorldPosition().z <= -1) {
+		getObj()->setPosition(initialPosition);
+	}
 }
 
 void UseableObject::UndoInteract() {

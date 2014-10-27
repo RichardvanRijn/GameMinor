@@ -138,6 +138,9 @@ void Player::tick(bool& wantsToUse) {
 		keyboard->clearKey(KC_CKEY);
 	}
 
+	if (keyboard->isKeyDown(KC_GKEY) && getPickedUpItem() != NULL)
+		dropItem();
+
 	if (pickedUpItem != NULL) {
 		pickedUpItem->getObj()->setPosition(view->getViewPosition() - view->getViewDirection());
 	}
