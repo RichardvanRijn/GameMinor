@@ -17,6 +17,10 @@ void UseableObject::interact() {
 
 }
 
+void UseableObject::tick() {
+
+}
+
 void UseableObject::UndoInteract() {
 
 }

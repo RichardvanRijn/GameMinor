@@ -83,25 +83,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DomSystem.cpp" />
     <ClCompile Include="door.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="interactableobject.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PickableObject.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="raam.cpp" />
+    <ClCompile Include="useableobject.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="viewdetection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DomSystem.h" />
     <ClInclude Include="door.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="interactableobject.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="PickableObject.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="raam.h" />
+    <ClInclude Include="useableobject.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="viewdetection.h" />
   </ItemGroup>

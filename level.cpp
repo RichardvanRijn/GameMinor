@@ -4,10 +4,9 @@
 #include "raam.h"
 #include "door.h"
 #include "useableobject.h"
-#include <regex>
 #include <algorithm>
 #include "OgreOverlayManager.h"
-
+#include "DomSystem.h"
 #include "OgreQuaternion.h"
 
 Level::Level(char* lvlPath) :
@@ -25,9 +24,9 @@ void Level::tick(gkScalar delta)
 	
 	//GrannyGuard->doList();
 	
-	if (!toDoList.empty() && GrannyGuard->getState() == IDLE){
+	/*if (!toDoList.empty() && GrannyGuard->getState() == IDLE){
 		GrannyGuard->setState(BUSY);
-	}
+	}*/
 
 	Controller::tick(delta);   
 	bool playerWantsToUse = false;
@@ -141,7 +140,7 @@ void Level::addObject(UseableObject* object){
 	toDoList.push_back(object);
 }
 
-deque <UseableObject*>& Level::giveList(){
+std::deque <UseableObject*>& Level::giveList(){
 	return toDoList;
 }
 

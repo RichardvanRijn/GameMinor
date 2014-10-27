@@ -6,6 +6,7 @@
 #include "player.h"
 
 class UseableObject;
+class DomSystem;
 
 class Level : public Controller
 {
@@ -13,7 +14,7 @@ private:
 	Player* player;
 	std::vector<UseableObject*> UseableObjects;
 	DomSystem* GrannyGuard;
-	deque < UseableObject* > toDoList;
+	std::deque < UseableObject* > toDoList;
 	
 
 public: 
@@ -21,7 +22,7 @@ public:
 	~Level();
 	void tick(gkScalar delta); 
     void loadLevel();
-	deque < UseableObject* >& giveList();
+	std::deque < UseableObject* >& giveList();
 	UseableObject* giveFirstProblem();
 	void addObject(UseableObject*);
 }; 

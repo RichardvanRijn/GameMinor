@@ -12,6 +12,7 @@ public:
 	virtual void UndoInteract();
 	bool isPickable();
 	virtual bool isBlocked();
+	virtual void tick();
 
 private:
 	bool pickable;
