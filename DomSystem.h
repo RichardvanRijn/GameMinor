@@ -3,10 +3,14 @@
 
 #include <deque>
 #include "useableobject.h"
+#include "interactableobject.h"
+//#include "DomState.h"
 
-#define IDLE 0
-#define BUSY 1
-#define ALARM 2
+
+class DomState;
+
+//the amount of hitpoints the Granny can withstand
+//const int hitPoints = 100;
 
 using namespace std;
 
@@ -15,14 +19,21 @@ class DomSystem
 public:
 	DomSystem();
 	~DomSystem();
-	void setState(int);
-	int getState();
+	void setState(DomState*);
+	DomState* getState();
+	deque < InteractableObject* >* giveList();
+	InteractableObject* giveFirstProblem();
+	void addObject(InteractableObject*);
 	
-	
+	void activate();
+//	void reduceHP(int damage);
 
-	//void doList();
 private:
-	int state;
+	DomState* currentState;
+	deque < InteractableObject* > toDoList;
+	
+	//the current amount of hitpoints 
+//	int currentHP;
 
 };
 

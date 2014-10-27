@@ -1,19 +1,14 @@
 #pragma once
-#include "useableobject.h"
-#include "level.h"					//Is wel echt nodig!
+#include "InteractableObject.h"
+//#include "level.h"					//Is wel echt nodig!
 
-class Door : public UseableObject
+class Door : public InteractableObject
 {
 public:
-	Door(gkGameObject* object, bool pickable, const char* animName);
+	Door(gkGameObject* object, const char* animName);
 	virtual ~Door();
 
-	void interact();
-	void UndoInteract();
 
-private:
-	gkAnimationPlayer* door;
-	bool isOpened;
-	bool canBeUsed;
+
 };
 

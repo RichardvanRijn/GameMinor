@@ -1,24 +1,20 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation\gkAnimation.h"
+//#include "PickableObject.h"
 
 class UseableObject : public GameObject
 {
 public:
 	UseableObject();
-	UseableObject(gkGameObject* object, bool canBePicked);
+	UseableObject(gkGameObject* object);
 	virtual ~UseableObject();
 
-	virtual void interact();
-	virtual void UndoInteract();
-	bool isPickable();
-	virtual bool isBlocked();
+	bool isPickable(UseableObject*);
+	virtual bool animationDone();
 	virtual void tick();
-
-private:
-	bool pickable;
-	bool blocked;
-	int timeToUnblock;
-	int timeToUndo;
 	gkVector3 initialPosition;
 
+protected:
+	gkAnimationPlayer* objectAnimation;
 };

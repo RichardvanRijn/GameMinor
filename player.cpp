@@ -98,7 +98,12 @@ void Player::stopMoving() {
 }
 
 bool Player::interact(){
-	return (keyboard->isKeyDown(KC_EKEY));
+	if (keyboard->isKeyDown(KC_EKEY))
+	{
+		keyboard->clearKey(KC_EKEY);
+		return true;
+	}
+	return false;
 }
 
 bool Player::isMoveKeyPressed(){

@@ -4,7 +4,7 @@
 class PickableObject : public UseableObject
 {
 public:
-	PickableObject(gkGameObject* object, bool canBePicked);
+	PickableObject(gkGameObject* object);
 	~PickableObject();
 };
 

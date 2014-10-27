@@ -4,9 +4,20 @@
 #include <deque>
 #include "Controller.h"
 #include "player.h"
+#include <iostream>
+#include "Ogre.h"
+#include <algorithm>
+#include "OgreOverlayManager.h"
+#include "useableobject.h"
+#include "PickableObject.h"
+#include "raam.h"
+#include "door.h"
+#include "InteractableObject.h"
+#include "OgreQuaternion.h"
+#include <regex>
+#include "DomSystem.h"
 
-class UseableObject;
-class DomSystem;
+
 
 class Level : public Controller
 {
@@ -14,17 +25,13 @@ private:
 	Player* player;
 	std::vector<UseableObject*> UseableObjects;
 	DomSystem* GrannyGuard;
-	std::deque < UseableObject* > toDoList;
-	
+
 
 public: 
     Level(char* lvlPath);
 	~Level();
 	void tick(gkScalar delta); 
     void loadLevel();
-	std::deque < UseableObject* >& giveList();
-	UseableObject* giveFirstProblem();
-	void addObject(UseableObject*);
 }; 
 
 #endif

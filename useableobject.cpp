@@ -1,21 +1,14 @@
 #include "useableobject.h"
+#include "PickableObject.h"
 
-
-UseableObject::UseableObject(gkGameObject* object, bool canBePicked):
+UseableObject::UseableObject(gkGameObject* object):
 	GameObject(object),
-	pickable(canBePicked),
 	initialPosition(object->getPosition())
 {
-
 }
 
 UseableObject::~UseableObject()
 {
-
-}
-
-void UseableObject::interact() {
-
 }
 
 void UseableObject::tick() {
@@ -24,14 +17,11 @@ void UseableObject::tick() {
 	}
 }
 
-void UseableObject::UndoInteract() {
-
+bool UseableObject::isPickable(UseableObject* tempUsableObj) {
+	PickableObject* tempPickableObj = dynamic_cast <PickableObject*> (tempUsableObj);
+	return (tempPickableObj != NULL);
 }
 
-bool UseableObject::isPickable() {
-	return pickable;
-}
-
-bool UseableObject::isBlocked(){
-	return blocked;
+bool UseableObject::animationDone(){
+	return (objectAnimation->isDone());
 }

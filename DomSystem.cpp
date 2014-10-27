@@ -1,7 +1,7 @@
 #include "DomSystem.h"
+#include "DomSystemStates.h"
 
-
-DomSystem::DomSystem()
+DomSystem::DomSystem() : currentState(idleState::Instance())
 {
 }
 
@@ -11,15 +11,35 @@ DomSystem::~DomSystem()
 }
 
 
-void DomSystem::setState(int i){
-	state = i;
+void DomSystem::setState(DomState* newState){
+	currentState = newState;
 }
 
-int DomSystem::getState(){
-	return state;
+DomState* DomSystem::getState(){
+	return currentState;
 }
 
-/*void DomSystem::doList(){
-	UseableObject* oldProblem = toDoList.front();
-	oldProblem->UndoInteract();
+void DomSystem::activate(){
+	if (this->currentState)
+		currentState->execute(this);
+
+}
+
+/*void DomSystem::reduceHP(int damage){
+
 }*/
+
+InteractableObject* DomSystem::giveFirstProblem() {
+	if (!toDoList.empty())
+		return toDoList.front();
+	else
+		return NULL;
+}
+
+void DomSystem::addObject(InteractableObject* object){
+	toDoList.push_back(object);
+}
+
+deque <InteractableObject*>* DomSystem::giveList(){
+	return &toDoList;
+}

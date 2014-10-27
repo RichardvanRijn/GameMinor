@@ -1,21 +1,18 @@
 #include "raam.h"
-#include "door.h"
 
-Raam::Raam(gkGameObject* object, bool pickable, const char* animName, gkGameObject* pH) :
-	UseableObject(object, pickable),
-	isOpened(false),
-	canBeUsed(true),
-	blocked(false),
+Raam::Raam(gkGameObject* object, const char* animName, gkGameObject* pH) :
+	InteractableObject(object, animName),
 	placeHolder(pH),
 	obstructionObject(NULL)
 {
-	getObj()->addAnimation(animName);
-	door = getObj()->getAnimationPlayer(animName);
+	//getObj()->addAnimation(animName);
+	//objectAnimation = getObj()->getAnimationPlayer(animName);
+	timeToUndo = 3;
+	momentToUndo = 0;
 }
 
 Raam::~Raam()
 {
-
 }
 
 void Raam::setObstruction(gkGameObject* obstruction) {
@@ -47,54 +44,13 @@ void Raam::removeObstruction() {
 	Raam::unBlock();
 }
 
-void Raam::act(bool toOpen) {
-	door->reset();
 
-	if (toOpen)
-		door->setMode(AK_ACT_END);
-	else
-		door->setMode(AK_ACT_INVERSE);
-
-	getObj()->playAnimation(door, 0);
-}
 
 void Raam::tick() {
-	if (hasObstruction() && door->getTimePosition() >= 0.4)
+	if (hasObstruction() && objectAnimation->getTimePosition() >= 0.4)
 		getObj()->pauseAnimations();
-	
 }
 
-void Raam::interact(){		
-	if ((door->isDone() || door->getTimePosition() == 0) && blocked == false){
-		canBeUsed = true;
-	}
-	if (canBeUsed == true && isOpened == false){
-		act(true);
-		isOpened = true;
-		canBeUsed = false;
-	}
-	else if (canBeUsed == true && isOpened == true){
-		act(false);
-		isOpened = false;
-		canBeUsed = false;
-	}
-}
-
-bool Raam::isOpen(){
-	return isOpened;
-}
-
-bool Raam::isBlocked(){
-	return blocked;
-}
-
-void Raam::block(){
-	blocked = true;
-}
-
-void Raam::unBlock(){
-	blocked = false;
-}
 
 gkGameObject* Raam::getPlaceHolder() const {
 	return placeHolder;
