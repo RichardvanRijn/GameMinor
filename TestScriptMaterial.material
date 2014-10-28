@@ -1,11 +1,14 @@
 material TestScriptMaterial
 {
+
 	technique 
 	{
 		pass
 		{
+		scene_blend alpha_blend
 			texture_unit 
 			{
+				
 				texture	buttone.png
 				scale 1 1
 			}
