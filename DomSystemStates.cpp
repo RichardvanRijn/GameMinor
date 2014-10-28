@@ -47,9 +47,9 @@ void busyState::execute(DomSystem* GrannyGuard)
 {
 	if (GrannyGuard->giveList()->empty())
 		GrannyGuard->setState(idleState::Instance());
-	
+
 	else {
-		if (GrannyGuard->giveFirstProblem()->animationDone())
+		if (GrannyGuard->giveFirstProblem()->animationDone() || GrannyGuard->giveFirstProblem()->isBlocked())
 			GrannyGuard->giveFirstProblem()->UndoInteract();
 		if (!GrannyGuard->giveFirstProblem()->isOpen())
 			GrannyGuard->giveList()->pop_front();

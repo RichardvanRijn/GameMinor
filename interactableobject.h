@@ -12,6 +12,7 @@ public:
 
 	virtual void interact();
 	virtual void UndoInteract();
+	virtual void removeObstruction();
 	void setMomentToUndo();
 	
 	bool isOpen();
@@ -25,6 +26,7 @@ protected:
 	bool canBeUsed;
 	int timeToUndo;
 	int momentToUndo;
+	int timeToUnblock;
 	bool blocked;
 };
 

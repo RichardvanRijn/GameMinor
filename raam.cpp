@@ -7,8 +7,9 @@ Raam::Raam(gkGameObject* object, const char* animName, gkGameObject* pH) :
 {
 	//getObj()->addAnimation(animName);
 	//objectAnimation = getObj()->getAnimationPlayer(animName);
-	timeToUndo = 3;
+	timeToUndo = 2;
 	momentToUndo = 0;
+	timeToUnblock = 4;
 }
 
 Raam::~Raam()
@@ -35,13 +36,16 @@ bool Raam::hasObstruction() const {
 }
 
 void Raam::removeObstruction() {
-	obstructionObject->getPhysicsController()->suspend(false);
-	obstructionObject->setLinearVelocity(gkVector3(0, 0, -0.01));
-	obstructionObject = NULL;
-	getObj()->resumeAnimations();
-	isOpened = false;
-	
-	Raam::unBlock();
+	if (hasObstruction())
+	{
+		obstructionObject->getPhysicsController()->suspend(false);
+		obstructionObject->setLinearVelocity(gkVector3(0, 0, -0.01));
+		obstructionObject = NULL;
+		getObj()->resumeAnimations();
+		isOpened = false;
+
+		Raam::unBlock();
+	}
 }
 
 

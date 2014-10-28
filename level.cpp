@@ -200,5 +200,5 @@ void Level::loadLevel()
 	//UseableObjects.push_back(new Raam(m_scene->getObject("Raam.000"), false, "RaamAction.000", m_scene->getObject("WindowBox.000")));
 	
 
-	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707,.707,0,0));
+	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 2, 1, 1000, true, Ogre::Quaternion(.707,.707,0,0), 5, 5);
 }
