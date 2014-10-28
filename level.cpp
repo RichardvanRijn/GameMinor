@@ -1,5 +1,5 @@
 #include "level.h"
-
+#include <regex>
 
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
@@ -13,9 +13,6 @@ Level::~Level() {
 
 void Level::tick(gkScalar delta)
 {        
-	
-
-
 	GrannyGuard->activate(); //GrannyGuard aanzetten
 
 	Controller::tick(delta);   
@@ -90,18 +87,13 @@ void Level::tick(gkScalar delta)
 	if (objectToUse != NULL){
 		ov->show();
 		if (playerWantsToUse) {
-//<<<<<<< HEAD
 			if (objectToUse->isPickable(objectToUse)) {// dan is objectToUse een PickableObject
 				PickableObject* tempPickableObj = dynamic_cast <PickableObject*> (objectToUse);
 				player->setPickedUpItem(tempPickableObj);
 			}
-			else
-			{
-				InteractableObject* tempInteractObj = dynamic_cast <InteractableObject*> (objectToUse);
-				
-				Raam *window = NULL;
-				std::string objectName = tempInteractObj->getObjName();
-				std::tr1::regex trashCanRegex("Prullenbak");
+			else if (InteractableObject* tempInteractObj = dynamic_cast <InteractableObject*> (objectToUse))
+			{				
+				Raam *window = NULL;				
 
 				if ((window = dynamic_cast<Raam*>(tempInteractObj)) != NULL
 					&& player->getPickedUpItem() != NULL
@@ -112,12 +104,31 @@ void Level::tick(gkScalar delta)
 					player->releaseItem();
 					window->setObstruction(obstructionObject);
 					GrannyGuard->addObject(window);
-				}
+				}				
 				else {
 					ov->hide();
 					tempInteractObj->interact();
 					GrannyGuard->addObject(tempInteractObj);
 					std::string string = tempInteractObj->getObjName();
+				}
+			}
+			else {
+				std::tr1::regex trashCanRegex("Prullenbak");
+				std::tr1::regex medicineRegex("Pil");
+				std::string objectName = objectToUse->getObjName();
+				if (player->getPickedUpItem() != NULL) {
+					std::string dumpObjectName = player->getPickedUpItem()->getObjName();
+
+					if (std::regex_search(objectName.begin(), objectName.end(), trashCanRegex)
+						&& std::regex_search(dumpObjectName.begin(), dumpObjectName.end(), medicineRegex))
+					{
+						gkGameObject* objectToDump = player->getPickedUpItem()->getObj();
+						UseableObjects.erase(std::find(UseableObjects.begin(), UseableObjects.end(), player->getPickedUpItem()));
+						player->releaseItem();
+						objectToDump->setPosition(objectToUse->getObj()->getWorldPosition());
+						objectToDump->setOrientation(objectToUse->getObj()->getWorldOrientation());
+						objectToDump->getPhysicsController()->suspend(true);
+					}
 				}
 			}
 		}
@@ -150,6 +161,8 @@ void Level::loadLevel()
 		std::string windowAnim = "RaamAction.";
 		std::string windowBoxName = "WindowBox.";
 		std::string panName = "Pan.";
+		std::string trashcanName = "Prullenbak.";
+		std::string pillName = "Pil.";
 		std::string counter = "00";
 		
 		counter += std::to_string(i);
@@ -159,6 +172,8 @@ void Level::loadLevel()
 		doorName += counter;
 		doorAnim += counter;
 		panName += counter;
+		pillName += counter;
+		trashcanName += counter;
 
 		gkGameObject *object = NULL;
 
@@ -173,6 +188,11 @@ void Level::loadLevel()
 		if ((object = m_scene->getObject(panName)) != NULL) {
 			UseableObjects.push_back(new PickableObject(object));
 		}
+		if ((object = m_scene->getObject(pillName)) != NULL)
+			UseableObjects.push_back(new PickableObject(object));
+		if ((object = m_scene->getObject(trashcanName)) != NULL)
+			UseableObjects.push_back(new UseableObject(object));
+
 	}
 
 	//UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
