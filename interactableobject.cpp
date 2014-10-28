@@ -45,7 +45,7 @@ void InteractableObject::UndoInteract(){
 	}
 
 	if (momentToUndo <= time(NULL)) {
-		if (objectAnimation->isDone() || objectAnimation->getTimePosition() == 0 && blocked == false){
+		if ((objectAnimation->isDone() || objectAnimation->getTimePosition() == 0 && blocked == false) || isBlocked()){
 			canBeUsed = true;
 		}
 		if (canBeUsed == true && isOpened == true){
@@ -53,8 +53,12 @@ void InteractableObject::UndoInteract(){
 			isOpened = false;
 			canBeUsed = false;
 			momentToUndo = 0;
+			removeObstruction();
 		}
 	}
+}
+
+void InteractableObject::removeObstruction(){
 }
 
 bool InteractableObject::isOpen(){
@@ -74,5 +78,9 @@ void InteractableObject::unBlock(){
 }
 
 void InteractableObject::setMomentToUndo(){
-	momentToUndo = time(NULL) + timeToUndo;
+	if (isBlocked())
+		momentToUndo = time(NULL) + timeToUndo + timeToUnblock;
+	else
+		momentToUndo = time(NULL) + timeToUndo;
+
 }
