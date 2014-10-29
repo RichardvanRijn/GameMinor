@@ -19,10 +19,10 @@ int main(int argc, char** argv)
 	eng.initialize();
 	Controller* menu = new Menu("menu.blend");
 	menu->loadLevel();
-	eng.addListener(menu);
+	//eng.addListener(menu);
     //Controller* game = new Level("kamers.blend");
 	//game->loadLevel();
-	//eng.addListener(game);
+	eng.addListener(menu);
 	eng.initializeStepLoop();
 	while(eng.stepOneFrame());
 	//delete game;

@@ -8,33 +8,53 @@ menuOverlays
 		{
 			metrics_mode pixels
 			horz_align center
-			vert_align center
-			left -100
-			top -100
+			vert_align top
+			left 0
+			top 100
 			width 200
 			height 200
+
+			element TextArea(titleText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Title
+				colour 0.6 0.6 0.6
+				char_height 96
+			}
 		}
 		container Panel(startButton)
 		{
 			metrics_mode pixels
 			horz_align center
-			vert_align center
-			left -100
-			top -100
+			vert_align top
+			left 0
+			top 300
 			width 200
 			height 200
+
+			element TextArea(startButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Start game
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
 		}
-		container Panel(tutorialButtonPanel)
+		container Panel(tutorialButton)
 		{
 			metrics_mode pixels
 			horz_align top
-			vert_align center
-			left 100
-			top 200
+			vert_align top
+			left 0
+			top 400
 			width 300
 			height 200
 			
-			element TextArea(tutorialButton)
+			element TextArea(tutorialButtonText)
 			{
 				metrics_mode pixels
 				font_name dialogFont
@@ -49,20 +69,40 @@ menuOverlays
 			metrics_mode pixels
 			horz_align center
 			vert_align top
-			left -100
-			top -100
+			left 0
+			top 500
 			width 200
 			height 200
+
+			element TextArea(creditsButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Credits
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
 		}
 		container Panel(exitButton)
 		{
 			metrics_mode pixels
 			horz_align center
-			vert_align bottom
-			left -100
-			top -100
+			vert_align top
+			left 0
+			top 600
 			width 200
 			height 200
+
+			element TextArea(exitButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Exit
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
 		}
 		container Panel(logo)
 		{

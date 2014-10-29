@@ -14,11 +14,20 @@ Controller::~Controller()
 		gkSceneManager::getSingleton().destroy(m_scene->getResourceHandle());
 }
 
+void Controller::loadLevel(Controller* oldController) {
+	//gkEngine::getSingleton().removeListener(oldController);
+	//gkSceneManager::getSingleton().destroyAll();
+	//delete oldController;
+
+	//this->loadLevel();
+	//gkEngine::getSingleton().addListener(this);
+}
+
 void Controller::loadLevel()
 {
     gkBlendFile* mapData = gkBlendLoader::getSingleton().loadFile(gkUtils::getFile(pathToLevel), "", "");
 	m_scene = mapData->getMainScene();
-
+	
 	m_scene->createInstance();
 }
 
