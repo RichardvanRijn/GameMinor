@@ -18,8 +18,10 @@ void Menu::loadLevel(){
 	Ogre::Overlay* fullMenu= overlayManagerMenu->getByName("menuOverlays");
 	fullMenu->show();
 	menuStandard = overlayManagerMenu->getOverlayElement("fullMenu");
-	credits = overlayManagerMenu->getOverlayElement("fullMenu");
-	tutorial = overlayManagerMenu->getOverlayElement("fullMenu");
+	credits = overlayManagerMenu->getOverlayElement("credits");
+	tutorial = overlayManagerMenu->getOverlayElement("tutorial");
+	credits->hide();
+	tutorial->hide();
 }
 
 void Menu::tick(gkScalar delta) {

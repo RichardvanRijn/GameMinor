@@ -13,7 +13,6 @@ menuOverlays
 			top -100
 			width 200
 			height 200
-			material menuMaterials
 		}
 		container Panel(startButton)
 		{
@@ -24,18 +23,26 @@ menuOverlays
 			top -100
 			width 200
 			height 200
-			material menuMaterials
 		}
-		container Panel(tutorialButton)
+		container Panel(tutorialButtonPanel)
 		{
 			metrics_mode pixels
-			horz_align center
+			horz_align top
 			vert_align center
 			left 100
-			top 100
-			width 200
+			top 200
+			width 300
 			height 200
-			material menuMaterials
+			
+			element TextArea(tutorialButton)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Tutorial
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
 		}
 		container Panel(creditsButton)
 		{
@@ -46,7 +53,6 @@ menuOverlays
 			top -100
 			width 200
 			height 200
-			material menuMaterials
 		}
 		container Panel(exitButton)
 		{
@@ -57,7 +63,6 @@ menuOverlays
 			top -100
 			width 200
 			height 200
-			material menuMaterials
 		}
 		container Panel(logo)
 		{
@@ -86,8 +91,8 @@ menuOverlays
 		metrics_mode pixels
 		horz_align center
 		vert_align center
-		left -100
-		top -100
+		left -200
+		top -200
 		width 200
 		height 200
 		material TestScriptMaterial

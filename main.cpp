@@ -13,7 +13,6 @@ int main(int argc, char** argv)
 	gkUserDefs prefs;
 	prefs.rendersystem = OGRE_RS_D3D9;
     prefs.fullscreen = true;
-	prefs.winsize = (1600, 900);
     prefs.wintitle = "Opa Killer";
     prefs.debugFps = true;
 	gkEngine eng(&prefs);
