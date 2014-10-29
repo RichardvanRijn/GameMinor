@@ -1,0 +1,51 @@
+GameOverlay
+{
+    zorder 500
+	
+	container Panel(MoneyOverlayText)
+	{
+		metrics_mode          pixels
+		width                 250
+		height                150
+	
+		element TextArea(MoneyOverlay)
+		{
+			metrics_mode  pixels
+			left          50
+			top           50
+			font_name     dialogFont
+			char_height   48
+			alignment     left
+			colour        0.8 0.6 0.1
+		}
+	}
+	container Panel(HealthOverlayText)
+	{
+		metrics_mode          pixels
+		width                 250
+		height                150
+		horz_align            right
+	
+		element TextArea(HealthOverlay)
+		{
+			metrics_mode  pixels
+			left          -50
+			top           50
+			font_name     dialogFont
+			char_height   48
+			alignment     right
+			colour        0.8 0.1 0.1
+		}
+	}
+	container Panel(ButtonOverlay)
+	{
+		metrics_mode pixels
+		horz_align center
+		vert_align center
+		left -100
+		top -100
+		width 200
+		height 200
+		material TestScriptMaterial
+	}
+} 

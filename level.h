@@ -7,7 +7,6 @@
 #include <iostream>
 #include "Ogre.h"
 #include <algorithm>
-#include "OgreOverlayManager.h"
 #include "useableobject.h"
 #include "PickableObject.h"
 #include "raam.h"
@@ -16,6 +15,7 @@
 #include "OgreQuaternion.h"
 #include <regex>
 #include "DomSystem.h"
+#include "GUIman.h"
 
 
 
@@ -25,7 +25,7 @@ private:
 	Player* player;
 	std::vector<UseableObject*> UseableObjects;
 	DomSystem* GrannyGuard;
-
+	GUIman* GUImanager;
 
 public: 
     Level(char* lvlPath);
