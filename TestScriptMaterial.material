@@ -1,6 +1,5 @@
 material TestScriptMaterial
 {
-
 	technique 
 	{
 		pass

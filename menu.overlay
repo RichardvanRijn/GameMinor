@@ -1,0 +1,95 @@
+menuOverlays
+{
+    zorder 200
+	
+	container Panel(fullMenu)
+	{
+		container Panel(titleBox)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align center
+			left -100
+			top -100
+			width 200
+			height 200
+			material menuMaterials
+		}
+		container Panel(startButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align center
+			left -100
+			top -100
+			width 200
+			height 200
+			material menuMaterials
+		}
+		container Panel(tutorialButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align center
+			left 100
+			top 100
+			width 200
+			height 200
+			material menuMaterials
+		}
+		container Panel(creditsButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left -100
+			top -100
+			width 200
+			height 200
+			material menuMaterials
+		}
+		container Panel(exitButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align bottom
+			left -100
+			top -100
+			width 200
+			height 200
+			material menuMaterials
+		}
+		container Panel(logo)
+		{
+			metrics_mode pixels
+			horz_align left
+			vert_align bottom
+			top -200
+			width 200
+			height 200
+			material logoMaterial
+		}
+	}
+	container Panel(credits)
+	{
+		metrics_mode pixels
+		horz_align center
+		vert_align center
+		left -100
+		top -100
+		width 200
+		height 200
+		material TestScriptMaterial
+	}
+	container Panel(tutorial)
+	{
+		metrics_mode pixels
+		horz_align center
+		vert_align center
+		left -100
+		top -100
+		width 200
+		height 200
+		material TestScriptMaterial
+	}
+}
