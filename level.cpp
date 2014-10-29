@@ -1,5 +1,6 @@
 #include "level.h"
 #include <regex>
+#include "OgreFontManager.h"
 
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
@@ -9,6 +10,81 @@ Level::Level(char* lvlPath) :
 
 Level::~Level() {
 	UseableObjects.clear();
+}
+
+
+void Level::loadLevel()
+{
+	Controller::loadLevel();
+
+	player = new Player(m_scene->getObject("banaan"), m_scene->getObject("Camera")->getCamera());
+	player->setKeyboard(m_keyboard);
+	player->setMoveSpeed(2);
+	player->setItemHoldPosition(gkVector3(0, -0.4, 0));
+	player->getView()->setViewControl(m_mouse);
+
+	bool stop = false;
+
+	GrannyGuard = new DomSystem;
+
+	for (int i = 0; i != 10; i++){
+		std::string doorName = "deur.";
+		std::string doorAnim = "Deuropen.";
+		std::string windowName = "Raam.";
+		std::string windowAnim = "RaamAction.";
+		std::string windowBoxName = "WindowBox.";
+		std::string panName = "Pan.";
+		std::string trashcanName = "Prullenbak.";
+		std::string pillName = "Pil.";
+		std::string counter = "00";
+
+		counter += std::to_string(i);
+		windowName += counter;
+		windowAnim += counter;
+		windowBoxName += counter;
+		doorName += counter;
+		doorAnim += counter;
+		panName += counter;
+		pillName += counter;
+		trashcanName += counter;
+
+		gkGameObject *object = NULL;
+
+		if ((object = m_scene->getObject(doorName)) != NULL) {
+			const char* anim = doorAnim.c_str();
+			UseableObjects.push_back(new Door(object, anim));
+		}
+		if ((object = m_scene->getObject(windowName)) != NULL) {
+			const char* anim = windowAnim.c_str();
+			UseableObjects.push_back(new Raam(object, anim, m_scene->getObject(windowBoxName)));
+		}
+		if ((object = m_scene->getObject(panName)) != NULL) {
+			UseableObjects.push_back(new PickableObject(object));
+		}
+		if ((object = m_scene->getObject(pillName)) != NULL)
+			UseableObjects.push_back(new PickableObject(object));
+		if ((object = m_scene->getObject(trashcanName)) != NULL)
+			UseableObjects.push_back(new UseableObject(object));
+
+	}
+
+	//UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
+	UseableObjects.push_back(new PickableObject(m_scene->getObject("Muis")));
+	//UseableObjects.push_back(new Raam(m_scene->getObject("Raam.000"), false, "RaamAction.000", m_scene->getObject("WindowBox.000")));
+
+	/*Ogre::ResourceGroupManager::getSingletonPtr();
+	Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
+	Ogre::Overlay* overlay = mg->getByName("GameOverlay");
+	overlay->show();
+
+	Ogre::OverlayElement* button = mg->getOverlayElement("ButtonOverlay");
+	Ogre::OverlayElement* moneyText = mg->getOverlayElement("MoneyOverlay");
+	Ogre::OverlayElement* healthText = mg->getOverlayElement("HealthOverlay");
+	*/
+
+	GUImanager = new GUIman;
+
+	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707, .707, 0, 0));
 }
 
 void Level::tick(gkScalar delta)
@@ -42,10 +118,34 @@ void Level::tick(gkScalar delta)
 			
 	}*/
 
-	Ogre::ResourceGroupManager::getSingletonPtr();
-	Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
-	Ogre::Overlay* ov = mg->getByName("TestScriptOverlay");
+	/*Ogre::OverlayManager* mg = Ogre::OverlayManager::getSingletonPtr();
+	Ogre::OverlayElement* button = mg->getOverlayElement("ButtonOverlay");
+	Ogre::OverlayElement* moneyText = mg->getOverlayElement("MoneyOverlay");
+	Ogre::OverlayElement* healthText = mg->getOverlayElement("HealthOverlay");
 
+	Ogre::OverlayManager::getSingletonPtr()->getOverlayElement("MoneyOverlay")->setCaption("$100");
+	moneyText->setCaption("$100");
+	moneyText->show();
+	
+	healthText->setCaption("73%");
+	healthText->show();*/
+
+	GUImanager->setHealthCaption("73%");
+	GUImanager->setMoneyCaption("$456");
+//	testing->show();
+	
+
+//	Ogre::OverlayContainer* testing = ov->getChild("GameOverlayText");
+//	Ogre::OverlayElement* text = ov->getChild("GameOverlayText")->getChild("HelloWorldText");
+
+//	button->show();
+	//Ogre::ResourceManager::ResourceMapIterator font = Ogre::FontManager::getSingleton().getResourceIterator();
+
+/*	while (font.hasMoreElements())
+	{
+		font.getNext()->load();
+	}
+*/
 	Ogre::Ray ray(player->getView()->getViewPosition(), -(player->getView()->getViewDirection()));
 	Ogre::RaySceneQuery* rayQuery = m_scene->getManager()->createRayQuery(ray);
 	rayQuery->setSortByDistance(true);
@@ -85,7 +185,7 @@ void Level::tick(gkScalar delta)
 	}
 
 	if (objectToUse != NULL){
-		ov->show();
+		GUImanager->showButtonE(true);
 		if (playerWantsToUse) {
 			if (objectToUse->isPickableObject(objectToUse)) {// dan is objectToUse een PickableObject
 				PickableObject* tempPickableObj = dynamic_cast <PickableObject*> (objectToUse);
@@ -108,7 +208,7 @@ void Level::tick(gkScalar delta)
 					GrannyGuard->addObject(window);
 				}				
 				else {
-					ov->hide();
+					GUImanager->showButtonE(false);
 					tempInteractObj->interact();
 					GrannyGuard->addObject(tempInteractObj);
 					std::string string = tempInteractObj->getObjName();
@@ -136,71 +236,7 @@ void Level::tick(gkScalar delta)
 		}
 	}
 	else
-		ov->hide();
+		GUImanager->showButtonE(false);
 
 	delete rayQuery;
-}
-
-
-void Level::loadLevel()
-{
-    Controller::loadLevel();	
-	
-	player = new Player(m_scene->getObject("banaan"), m_scene->getObject("Camera")->getCamera());	
-	player->setKeyboard(m_keyboard);
-	player->setMoveSpeed(2);
-	player->setItemHoldPosition(gkVector3(0, -0.4, 0));
-	player->getView()->setViewControl(m_mouse);
-	
-	bool stop = false;
-
-	GrannyGuard = new DomSystem;
-
-	for (int i = 0; i != 10; i++){
-		std::string doorName = "deur.";
-		std::string doorAnim = "Deuropen.";
-		std::string windowName = "Raam.";
-		std::string windowAnim = "RaamAction.";
-		std::string windowBoxName = "WindowBox.";
-		std::string panName = "Pan.";
-		std::string trashcanName = "Prullenbak.";
-		std::string pillName = "Pil.";
-		std::string counter = "00";
-		
-		counter += std::to_string(i);
-		windowName += counter;
-		windowAnim += counter;
-		windowBoxName += counter;
-		doorName += counter;
-		doorAnim += counter;
-		panName += counter;
-		pillName += counter;
-		trashcanName += counter;
-
-		gkGameObject *object = NULL;
-
-		if ((object = m_scene->getObject(doorName)) != NULL) {
-			const char* anim = doorAnim.c_str();
-			UseableObjects.push_back(new Door(object, anim));
-		}
-		if ((object = m_scene->getObject(windowName)) != NULL) {
-			const char* anim = windowAnim.c_str();
-			UseableObjects.push_back(new Raam(object, anim, m_scene->getObject(windowBoxName)));
-		}
-		if ((object = m_scene->getObject(panName)) != NULL) {
-			UseableObjects.push_back(new PickableObject(object));
-		}
-		if ((object = m_scene->getObject(pillName)) != NULL)
-			UseableObjects.push_back(new PickableObject(object));
-		if ((object = m_scene->getObject(trashcanName)) != NULL)
-			UseableObjects.push_back(new UseableObject(object));
-
-	}
-
-	//UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
-	UseableObjects.push_back(new PickableObject(m_scene->getObject("Muis")));
-	//UseableObjects.push_back(new Raam(m_scene->getObject("Raam.000"), false, "RaamAction.000", m_scene->getObject("WindowBox.000")));
-	
-
-	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 2, 1, 1000, true, Ogre::Quaternion(.707,.707,0,0), 5, 5);
 }

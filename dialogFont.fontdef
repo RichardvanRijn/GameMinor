@@ -1,0 +1,7 @@
+dialogFont
+{
+  type truetype
+  source AlfaSlabOne-Regular.ttf
+  size 48
+  resolution 96
+}
