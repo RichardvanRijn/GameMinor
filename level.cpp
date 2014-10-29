@@ -87,9 +87,10 @@ void Level::tick(gkScalar delta)
 	if (objectToUse != NULL){
 		ov->show();
 		if (playerWantsToUse) {
-			if (objectToUse->isPickable(objectToUse)) {// dan is objectToUse een PickableObject
+			if (objectToUse->isPickableObject(objectToUse)) {// dan is objectToUse een PickableObject
 				PickableObject* tempPickableObj = dynamic_cast <PickableObject*> (objectToUse);
-				player->setPickedUpItem(tempPickableObj);
+				if (tempPickableObj->isPickable())
+					player->setPickedUpItem(tempPickableObj);
 			}
 			else if (InteractableObject* tempInteractObj = dynamic_cast <InteractableObject*> (objectToUse))
 			{				
@@ -99,8 +100,9 @@ void Level::tick(gkScalar delta)
 					&& player->getPickedUpItem() != NULL
 					&& window->isOpen() && !window->hasObstruction())
 				{
-					gkGameObject* obstructionObject = player->getPickedUpItem()->getObj();
-					UseableObjects.erase(std::find(UseableObjects.begin(), UseableObjects.end(), player->getPickedUpItem()));
+					PickableObject* obstructionObject = player->getPickedUpItem();
+					obstructionObject->setPickable(false);
+					//UseableObjects.erase(std::find(UseableObjects.begin(), UseableObjects.end(), player->getPickedUpItem()));
 					player->releaseItem();
 					window->setObstruction(obstructionObject);
 					GrannyGuard->addObject(window);

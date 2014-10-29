@@ -11,7 +11,7 @@ public:
 
 
 	void setPlaceHolder(gkGameObject* object);
-	void setObstruction(gkGameObject* obstruction);
+	void setObstruction(PickableObject* obstruction);
 	void removeObstruction();
 	
 	bool hasObstruction() const;
@@ -19,8 +19,9 @@ public:
 	
 	void tick();
 	gkGameObject* getPlaceHolder() const;
-	gkGameObject* getObstruction() const;
+	PickableObject* getObstruction() const;
 
 private:
-	gkGameObject* placeHolder, *obstructionObject;
+	gkGameObject* placeHolder;
+	PickableObject* obstructionObject;
 };

@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "view.h"
 
-class UseableObject;
+class PickableObject;
 
 class Player : public GameObject
 {
@@ -14,7 +14,7 @@ public:
 	void setView(gkCamera* cam);
 	void setMoveSpeed(float speed);
 	void setKeyboard(gkKeyboard* board);
-	void setPickedUpItem(UseableObject* item);
+	void setPickedUpItem(PickableObject* item);
 	void setItemHoldPosition(gkVector3 position);
 
 	void dropItem();
@@ -29,13 +29,13 @@ public:
 	void toggleCrouch();
 
 	View* getView() const;
-	UseableObject* getPickedUpItem() const;
+	PickableObject* getPickedUpItem() const;
 
 private:
 	View* view;
 	gkKeyboard* keyboard;	
 	
-	UseableObject* pickedUpItem;
+	PickableObject* pickedUpItem;
 
 	bool interact();
 

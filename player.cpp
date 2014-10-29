@@ -1,5 +1,5 @@
 #include "player.h"
-#include "useableobject.h"
+#include "PickableObject.h"
 
 Player::Player(gkGameObject* object) :
 	GameObject(object),
@@ -59,7 +59,7 @@ void Player::setView(gkCamera* cam) {
 		view = new View(cam);
 }
 
-void Player::setPickedUpItem(UseableObject* item) {
+void Player::setPickedUpItem(PickableObject* item) {
 	pickedUpItem = item;
 }
 
@@ -157,6 +157,6 @@ View* Player::getView() const {
 	return view;
 }
 
-UseableObject* Player::getPickedUpItem() const {
+PickableObject* Player::getPickedUpItem() const {
 	return pickedUpItem;
 }
