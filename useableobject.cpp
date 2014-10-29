@@ -17,7 +17,7 @@ void UseableObject::tick() {
 	}
 }
 
-bool UseableObject::isPickable(UseableObject* tempUsableObj) {
+bool UseableObject::isPickableObject(UseableObject* tempUsableObj) {
 	PickableObject* tempPickableObj = dynamic_cast <PickableObject*> (tempUsableObj);
 	return (tempPickableObj != NULL);
 }

@@ -7,7 +7,7 @@ Door::Door(gkGameObject* object, const char* animName) :
 {
 	//getObj()->addAnimation(animName);
 	//objectAnimation = getObj()->getAnimationPlayer(animName);
-	timeToUndo = 6;
+	timeToUndo = 3;
 	momentToUndo = 0;
 }
 

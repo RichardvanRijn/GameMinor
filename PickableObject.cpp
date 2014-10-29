@@ -10,3 +10,11 @@ PickableObject::PickableObject(gkGameObject* object):
 PickableObject::~PickableObject()
 {
 }
+
+bool PickableObject::isPickable(){
+	return pickable;
+}
+
+void PickableObject::setPickable(bool pick){
+	pickable = pick;
+}

@@ -10,7 +10,7 @@ public:
 	UseableObject(gkGameObject* object);
 	virtual ~UseableObject();
 
-	bool isPickable(UseableObject*);
+	bool isPickableObject(UseableObject*);
 	virtual bool animationDone();
 	virtual void tick();
 	gkVector3 initialPosition;
