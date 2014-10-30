@@ -18,12 +18,10 @@ int main(int argc, char** argv)
     prefs.debugFps = true;
 	gkEngine eng(&prefs);
 	eng.initialize();
+
 	Controller* menu = new Menu("menu.blend");
 	menu->loadLevel();
-    //Controller* game = new Level("kamers.blend");
-	//game->loadLevel();
 	eng.addListener(menu);
-	//eng.addListener(game);
 	eng.initializeStepLoop();
 	while(eng.stepOneFrame());
 	//delete game;
