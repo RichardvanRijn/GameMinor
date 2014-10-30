@@ -1,18 +1,19 @@
 #include "progresssystem.h"
 #include "DomSystem.h"
+#include "GUIman.h"
 
-ProgressSystem::ProgressSystem(DomSystem* domoticaSystem, const int maxPoints, const int interval, const int multiplier, int money, const int moneyLoss) :
-	domSystem(domoticaSystem),
-	maxHitPoints(maxPoints),
-	currentHitPoints(maxPoints),
-	damageInterval(1),
-	damageMoment(0),
-	damageMultiplier(multiplier),
-	regenMultiplier(0),
-	inheritanceMoney(money),
-	inheritanceLoss(moneyLoss)
+ProgressSystem::ProgressSystem(DomSystem* domoticaSystem, GUIman* GuiSystem, const int maxPoints, const int interval, int money, const int moneyLoss, const int regenspeed) :
+domSystem(domoticaSystem),
+guiSystem(GuiSystem),
+maxHitPoints(maxPoints),
+currentHitPoints(maxPoints),
+damageInterval(1),
+damageMoment(0),
+regenMultiplier(regenspeed),
+inheritanceMoney(money),
+inheritanceLoss(moneyLoss)
 {
-	
+
 }
 
 ProgressSystem::~ProgressSystem()
@@ -36,10 +37,19 @@ void ProgressSystem::tick() {
 
 void ProgressSystem::subtractHealth() {
 	int currentNumberOfProblems = domSystem->giveList()->size();
+	int totalDamage = 0;
 
-	if (currentNumberOfProblems == 0) {
+	for (int i = 0; i < currentNumberOfProblems; i++){
+		totalDamage += domSystem->giveList()->at(i)->healthDamage();
+	}
+
+	if (currentHitPoints > 0){
+		setHitPoints(currentHitPoints - totalDamage + regenMultiplier);
+	}
+
+/*	if (currentNumberOfProblems == 0) {
 		if (currentHitPoints < maxHitPoints && currentHitPoints > 0)
-			setHitPoints(currentHitPoints + damageMultiplier * regenMultiplier);
+			setHitPoints(currentHitPoints + regenMultiplier);
 		else {
 			regenMultiplier = 0;
 		}
@@ -50,18 +60,22 @@ void ProgressSystem::subtractHealth() {
 
 		if (currentNumberOfProblems > regenMultiplier)
 			regenMultiplier = currentNumberOfProblems;
-	}
+	}*/
 
 	normaliseHitpoints();
 
-	std::cout << "Hitpoints: " << currentHitPoints << std::endl;
+	std::string newHitPoints;
+	newHitPoints = "Granny: " + std::to_string(currentHitPoints) + "%";
+	guiSystem->setHealthCaption(newHitPoints);
 }
 
 void ProgressSystem::subtractMoney() {
 	if (currentHitPoints > 0)
 		inheritanceMoney -= inheritanceLoss;
 
-	std::cout << "Money: " << inheritanceMoney << std::endl;
+	std::string newMoney = "$" + std::to_string(inheritanceMoney);
+
+	guiSystem->setMoneyCaption(newMoney);
 }
 
 void ProgressSystem::normaliseHitpoints() {

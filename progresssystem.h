@@ -1,11 +1,12 @@
 #pragma once
 
 class DomSystem;
+class GUIman;
 
 class ProgressSystem
 {
 public:
-	ProgressSystem(DomSystem* domoticaSystem, const int maxPoints, const int interval, const int multiplier, int money, int moneyLoss);
+	ProgressSystem(DomSystem* domoticaSystem, GUIman* GuiSystem ,const int maxPoints, const int interval, int money, const int moneyLoss, const int regenspeed);
 	~ProgressSystem();
 
 	void setHitPoints(int points);
@@ -13,7 +14,7 @@ public:
 	void tick();
 
 	int getHitPoints() const;
-	
+
 private:
 	void normaliseHitpoints();
 	void subtractHealth();
@@ -25,9 +26,9 @@ private:
 	int regenMultiplier;
 	const int maxHitPoints;
 	const int damageInterval;
-	const int damageMultiplier;
 	int damageMoment;
 	DomSystem* domSystem;
+	GUIman* guiSystem;
 
 };
 
