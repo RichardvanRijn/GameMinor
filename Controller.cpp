@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "gkGameObjectManager.h"
+#include "level.h"
 
 Controller::Controller(char *lvlPath) :    
     pathToLevel(lvlPath)       
@@ -10,17 +11,22 @@ Controller::Controller(char *lvlPath) :
 
 Controller::~Controller()
 {
-	if (m_scene)
-		gkSceneManager::getSingleton().destroy(m_scene->getResourceHandle());
+	/*if (m_scene)
+		gkSceneManager::getSingleton().destroy(m_scene->getResourceHandle());*/
+	gkGameObjectHashMap objects = m_scene->getObjects();
+
+	for (int i = 0; i != objects.size(); ++i)
+		m_scene->destroyObject(objects[i]);
+
+	m_scene->getCreator()->destroy(m_scene->getResourceHandle());
 }
 
-void Controller::loadLevel(Controller* oldController) {
-	//gkEngine::getSingleton().removeListener(oldController);
-	//gkSceneManager::getSingleton().destroyAll();
-	//delete oldController;
+void Controller::loadLevel(Controller* oldController) {		
+	gkEngine::getSingleton().removeListener(oldController);	
+	delete oldController;
 
-	//this->loadLevel();
-	//gkEngine::getSingleton().addListener(this);
+	this->loadLevel();
+	gkEngine::getSingleton().addListener(this);
 }
 
 void Controller::loadLevel()

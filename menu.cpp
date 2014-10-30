@@ -14,12 +14,24 @@ Menu::Menu(char* lvlPath) :
 
 
 Menu::~Menu()
-{
+{	
+	//Ogre::OverlayManager::getSingletonPtr()->destroyAllOverlayElements();
+
+	for (int i = 0; i != menuButtons.size(); ++i)
+		menuButtons[i]->hide();
+
+	menuStandard->hide();
+	tutorial->hide();
+	credits->hide();
+
+	//overlayManagerMenu->destroy(menuStandard->getName());
+	//overlayManagerMenu->destroy(tutorial->getName());
+	//overlayManagerMenu->destroy(credits->getName());
+	//overlayManagerMenu->destroyAll();
 	//delete overlayManagerMenu;
 	//delete menuStandard;
 	//delete tutorial;
 	//delete credits;
-	
 	//for (unsigned int i = 0; i != menuButtons.size(); ++i)
 	//	delete menuButtons[i];
 }
@@ -93,8 +105,10 @@ void Menu::tick(gkScalar delta) {
 
 	highlightItem();
 
-	if (m_keyboard->isKeyDown(KC_RETKEY))
+	if (m_keyboard->isKeyDown(KC_RETKEY)) {
+		m_keyboard->clearKey(KC_RETKEY);
 		menuAction();
+	}
 
 	//menuStandard->show();
 }
