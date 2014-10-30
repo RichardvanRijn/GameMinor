@@ -25,7 +25,9 @@ void Level::loadLevel()
 
 	bool stop = false;
 
+	GUImanager = new GUIman;
 	GrannyGuard = new DomSystem;
+	progressSystem = new ProgressSystem(GrannyGuard, GUImanager, 100, 1, 900000, 1000, 5);
 
 	for (int i = 0; i != 10; i++){
 		std::string doorName = "deur.";
@@ -82,16 +84,16 @@ void Level::loadLevel()
 	Ogre::OverlayElement* healthText = mg->getOverlayElement("HealthOverlay");
 	*/
 
-	GUImanager = new GUIman;
 
 	m_scene->getManager()->setSkyDome(true, "TestScriptSky", 8, 10, 2000, true, Ogre::Quaternion(.707, .707, 0, 0));
 }
 
 void Level::tick(gkScalar delta)
 {        
-	GrannyGuard->activate(); //GrannyGuard aanzetten
+	GrannyGuard->activate(); 
+	progressSystem->tick();
+	Controller::tick(delta);  
 
-	Controller::tick(delta);   
 	bool playerWantsToUse = false;
 
 	player->tick(playerWantsToUse);
@@ -99,6 +101,8 @@ void Level::tick(gkScalar delta)
 	for (UINT8 i = 0; i != UseableObjects.size(); ++i) {
 		UseableObjects[i]->tick();
 	}	
+
+
 
 	/*Raam* window = NULL;
 	
@@ -130,8 +134,8 @@ void Level::tick(gkScalar delta)
 	healthText->setCaption("73%");
 	healthText->show();*/
 
-	GUImanager->setHealthCaption("73%");
-	GUImanager->setMoneyCaption("$456");
+//	GUImanager->setHealthCaption("73%");
+//	GUImanager->setMoneyCaption("$456");
 //	testing->show();
 	
 

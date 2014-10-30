@@ -92,8 +92,10 @@
     <ClCompile Include="interactableobject.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="PickableObject.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="ProgressSystem.cpp" />
     <ClCompile Include="raam.cpp" />
     <ClCompile Include="useableobject.cpp" />
     <ClCompile Include="view.cpp" />
@@ -110,8 +112,10 @@
     <ClInclude Include="interactableobject.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="PickableObject.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="ProgressSystem.h" />
     <ClInclude Include="raam.h" />
     <ClInclude Include="useableobject.h" />
     <ClInclude Include="view.h" />

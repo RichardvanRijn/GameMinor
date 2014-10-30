@@ -10,6 +10,7 @@ Raam::Raam(gkGameObject* object, const char* animName, gkGameObject* pH) :
 	timeToUndo = 2;
 	momentToUndo = 0;
 	timeToUnblock = 4;
+	healthLoss = 5;
 }
 
 Raam::~Raam()
