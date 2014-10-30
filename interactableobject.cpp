@@ -84,3 +84,7 @@ void InteractableObject::setMomentToUndo(){
 		momentToUndo = time(NULL) + timeToUndo;
 
 }
+
+int InteractableObject::healthDamage(){
+	return healthLoss;
+}

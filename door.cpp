@@ -9,6 +9,7 @@ Door::Door(gkGameObject* object, const char* animName) :
 	//objectAnimation = getObj()->getAnimationPlayer(animName);
 	timeToUndo = 3;
 	momentToUndo = 0;
+	healthLoss = 1;
 }
 
 Door::~Door()
