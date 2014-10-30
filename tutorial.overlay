@@ -1,90 +1,70 @@
-menuOverlays
+tutorialOverlays
 {
     zorder 200
 	
-	container Panel(fullMenu)
+	container Panel(fullTutorial)
 	{
-		container Panel(titleBox)
+		container Panel(tutorialTextBox4)
 		{
 			metrics_mode pixels
 			horz_align center
-			vert_align top
+			vert_align bottom
 			left 0
-			top 100
+			top -100
 			width 200
 			height 200
 
-			element TextArea(titleText)
+			element TextArea(tutorialBackButton)
 			{
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption Title
+				caption Back
 				colour 0.6 0.6 0.6
 				char_height 96
 			}
 		}
-		container Panel(startButton)
+		container Panel(tutorialTextBox5)
 		{
 			metrics_mode pixels
-			horz_align center
-			vert_align top
-			left 0
-			top 300
+			horz_align right
+			vert_align bottom
+			left -100
+			top -200
 			width 200
 			height 200
 
-			element TextArea(startButtonText)
+			element TextArea(tutorialNextButton)
 			{
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption Start game
+				caption Next
 				colour 0.6 0.6 0.6
-				char_height 48
+				char_height 96
 			}
 		}
-		container Panel(tutorialButton)
+		container Panel(tutorialTextBox6)
 		{
 			metrics_mode pixels
-			horz_align top
-			vert_align top
-			left 0
-			top 400
-			width 300
-			height 200
-			
-			element TextArea(tutorialButtonText)
-			{
-				metrics_mode pixels
-				font_name dialogFont
-				alignment center
-				caption Tutorial
-				colour 0.6 0.6 0.6
-				char_height 48
-			}
-		}
-		container Panel(creditsButton)
-		{
-			metrics_mode pixels
-			horz_align center
-			vert_align top
-			left 0
-			top 500
+			horz_align left
+			vert_align bottom
+			left 160
+			top -200
 			width 200
 			height 200
 
-			element TextArea(creditsButtonText)
+			element TextArea(tutorialPreviousButton)
 			{
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption Credits
+				caption Previous
 				colour 0.6 0.6 0.6
-				char_height 48
+				char_height 96
 			}
 		}
-		container Panel(exitButton)
+		container Panel(tutorialTextBox1)
 		{
 			metrics_mode pixels
 			horz_align center
@@ -94,25 +74,55 @@ menuOverlays
 			width 200
 			height 200
 
-			element TextArea(exitButtonText)
+			element TextArea(tutorialText1)
 			{
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption Exit
+				caption text1
 				colour 0.6 0.6 0.6
 				char_height 48
 			}
 		}
-		container Panel(logo)
+		container Panel(tutorialTextBox2)
 		{
 			metrics_mode pixels
-			horz_align left
-			vert_align bottom
-			top -200
+			horz_align center
+			vert_align top
+			left 0
+			top 600
 			width 200
 			height 200
-			material logoMaterial
+
+			element TextArea(tutorialText2)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption text2
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
+		}
+		container Panel(tutorialTextBox3)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 600
+			width 200
+			height 200
+
+			element TextArea(tutorialText3)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption text3
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
 		}
 	}
 }

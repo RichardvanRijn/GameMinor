@@ -1,4 +1,4 @@
-#include "ProgressSystem.h"
+#include "progresssystem.h"
 #include "DomSystem.h"
 #include "GUIman.h"
 

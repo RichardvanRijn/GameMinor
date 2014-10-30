@@ -1,5 +1,6 @@
 #pragma once
 #include "Controller.h"
+
 class Menu :
 	public Controller
 {
@@ -16,10 +17,18 @@ private:
 	void highlightItem();
 	void clearHighlights();
 	void menuAction();
+	std::string getNextSection();
+	std::string getPreviousSection();
+	std::string getCurrentSection();
 
 	unsigned int menuPosition;
+	int actualMenu;
+	int tutorialSection;
 
 	std::vector<Ogre::OverlayElement*> menuButtons;
+	std::vector<Ogre::OverlayElement*> tutorialButtons;
+	std::vector<Ogre::OverlayElement*> creditsButtons;
+	std::vector<std::vector<Ogre::OverlayElement*>> menuItems;
 
 	Ogre::ColourValue defaultColour;
 	Ogre::ColourValue highlightColour;

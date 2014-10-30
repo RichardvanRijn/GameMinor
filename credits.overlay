@@ -1,0 +1,48 @@
+creditsOverlays
+{
+    zorder 200
+	
+	container Panel(fullCredits)
+	{
+		container Panel(creditsTextBox1)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 100
+			width 200
+			height 200
+
+			element TextArea(creditsBackButton)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Back
+				colour 0.6 0.6 0.6
+				char_height 96
+			}
+		}
+		container Panel(creditsTextBox2)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 500
+			width 200
+			height 200
+
+			element TextArea(creditsText1)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Credits
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
+		}
+	}
+}

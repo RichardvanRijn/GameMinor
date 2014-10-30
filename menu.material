@@ -20,7 +20,6 @@ material logoMaterial
 	{
 		pass
 		{
-		alpha 0.5
 			texture_unit 
 			{
 				texture	logo.png

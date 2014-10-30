@@ -1,0 +1,7 @@
+titleFont
+{
+  type truetype
+  source yataghan.ttf
+  size 48
+  resolution 96
+}
