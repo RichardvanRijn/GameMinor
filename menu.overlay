@@ -1,0 +1,140 @@
+menuOverlays
+{
+    zorder 200
+	
+	container Panel(fullMenu)
+	{
+		container Panel(titleBox)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 100
+			width 200
+			height 200
+
+			element TextArea(titleText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Title
+				colour 0.6 0.6 0.6
+				char_height 96
+			}
+		}
+		container Panel(startButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 300
+			width 200
+			height 200
+
+			element TextArea(startButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Start game
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
+		}
+		container Panel(tutorialButton)
+		{
+			metrics_mode pixels
+			horz_align top
+			vert_align top
+			left 0
+			top 400
+			width 300
+			height 200
+			
+			element TextArea(tutorialButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Tutorial
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
+		}
+		container Panel(creditsButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 500
+			width 200
+			height 200
+
+			element TextArea(creditsButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Credits
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
+		}
+		container Panel(exitButton)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 600
+			width 200
+			height 200
+
+			element TextArea(exitButtonText)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				caption Exit
+				colour 0.6 0.6 0.6
+				char_height 48
+			}
+		}
+		container Panel(logo)
+		{
+			metrics_mode pixels
+			horz_align left
+			vert_align bottom
+			top -200
+			width 200
+			height 200
+			material logoMaterial
+		}
+	}
+	container Panel(credits)
+	{
+		metrics_mode pixels
+		horz_align center
+		vert_align center
+		left -100
+		top -100
+		width 200
+		height 200
+		material TestScriptMaterial
+	}
+	container Panel(tutorial)
+	{
+		metrics_mode pixels
+		horz_align center
+		vert_align center
+		left -200
+		top -200
+		width 200
+		height 200
+		material TestScriptMaterial
+	}
+}

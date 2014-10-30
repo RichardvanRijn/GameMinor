@@ -15,7 +15,8 @@ public:
     Controller(char* lvlPath);
 	virtual ~Controller();
     virtual void loadLevel();
-	
+	void loadLevel(Controller* oldController);
+
 protected:
 	const char* pathToLevel;
 	gkScene* m_scene;

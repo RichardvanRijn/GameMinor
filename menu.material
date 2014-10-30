@@ -1,0 +1,32 @@
+material menuMaterials
+{
+	technique 
+	{
+		pass
+		{
+		scene_blend alpha_blend
+			texture_unit 
+			{
+				texture	buttone.png
+				scale 1 1
+			}
+		}
+	}
+}
+
+material logoMaterial
+{
+	technique 
+	{
+		pass
+		{
+		alpha 0.5
+			texture_unit 
+			{
+				texture	logo.png
+				scale 1 1
+				
+			}
+		}
+	}
+}
