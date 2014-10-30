@@ -48,4 +48,33 @@ GameOverlay
 		height 200
 		material TestScriptMaterial
 	}
+	container Panel(EndGameOverlayText)
+	{
+		metrics_mode	pixels
+		width			250
+		height 			250
+		horz_align		center
+		vert_align		center
+
+		element TextArea(EndGameOverlay)
+		{
+			metrics_mode  pixels
+			alignment	  center
+			font_name     dialogFont
+			char_height   96
+			colour        0 0.6 0
+			caption		  You have won! 
+		}
+		element TextArea(EndGameOverlaySecond)
+		{
+			metrics_mode  pixels
+			alignment	  center
+			top 		  100
+			font_name     dialogFont
+			char_height   72
+			colour        0 0.6 0
+			caption		  Press Enter 
+		}
+
+	}
 } 

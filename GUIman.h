@@ -13,11 +13,13 @@ public:
 	void setHealthCaption(std::string newCaption);
 	void setMoneyCaption(std::string newCaption);
 	void showButtonE(bool show);
+	void showEndGame();
 
 private:
 	Ogre::Overlay* GameOverlay;
 	Ogre::OverlayElement* HealthOverlay;
 	Ogre::OverlayElement* MoneyOverlay;
 	Ogre::OverlayElement* Button;
+	Ogre::OverlayElement* endGameOverlay;
 };
 

@@ -1,6 +1,7 @@
 #include "level.h"
 #include <regex>
 #include "OgreFontManager.h"
+#include "menu.h"
 
 Level::Level(char* lvlPath) :
     Controller(lvlPath)    
@@ -10,6 +11,11 @@ Level::Level(char* lvlPath) :
 
 Level::~Level() {
 	UseableObjects.clear();
+
+	//delete GUImanager;
+	//delete player;
+	//delete GrannyGuard;
+	//delete progressSystem;
 }
 
 
@@ -29,7 +35,7 @@ void Level::loadLevel()
 	GrannyGuard = new DomSystem;
 	progressSystem = new ProgressSystem(GrannyGuard, GUImanager, 100, 1, 900000, 1000, 5);
 
-	for (int i = 0; i != 10; i++){
+	for (int i = 0; i != 25; i++){
 		std::string doorName = "deur.";
 		std::string doorAnim = "Deuropen.";
 		std::string windowName = "Raam.";
@@ -38,13 +44,24 @@ void Level::loadLevel()
 		std::string panName = "Pan.";
 		std::string trashcanName = "Prullenbak.";
 		std::string pillName = "Pil.";
-		std::string counter = "00";
+		std::string toasterName = "Broodrooster.";
+		std::string stoveSwitchName = "Knop.";
+		std::string stoveSwitchAnim = "KnopAction.";
+		std::string counter;
+
+		if (i < 10)
+			counter = "00";
+		else if (i >= 10)
+			counter = "0";
 
 		counter += std::to_string(i);
 		windowName += counter;
+		toasterName += counter;
 		windowAnim += counter;
 		windowBoxName += counter;
 		doorName += counter;
+		stoveSwitchName += counter;
+		stoveSwitchAnim += counter;
 		doorAnim += counter;
 		panName += counter;
 		pillName += counter;
@@ -67,7 +84,12 @@ void Level::loadLevel()
 			UseableObjects.push_back(new PickableObject(object));
 		if ((object = m_scene->getObject(trashcanName)) != NULL)
 			UseableObjects.push_back(new UseableObject(object));
-
+		if ((object = m_scene->getObject(toasterName)) != NULL)
+			UseableObjects.push_back(new PickableObject(object));
+		if ((object = m_scene->getObject(stoveSwitchName)) != NULL) {
+			const char* anim = stoveSwitchAnim.c_str();
+			UseableObjects.push_back(new Door(object, anim));
+		}
 	}
 
 	//UseableObjects.push_back(new UseableObject(m_scene->getObject("Pan.001"), true));
@@ -90,13 +112,23 @@ void Level::loadLevel()
 
 void Level::tick(gkScalar delta)
 {        
+	Controller::tick(delta);
+
 	GrannyGuard->activate(); 
 	progressSystem->tick();
-	Controller::tick(delta);  
-
+	 
 	bool playerWantsToUse = false;
+	
+	if (progressSystem->getHitPoints() != 0)
+		player->tick(playerWantsToUse);
+	else {
+		GUImanager->showEndGame();
 
-	player->tick(playerWantsToUse);
+		if (m_keyboard->isKeyDown(KC_RETKEY)) {
+			m_keyboard->clearKey(KC_RETKEY);
+			gkEngine::getSingletonPtr()->requestExit();
+		}
+	}
 	
 	for (UINT8 i = 0; i != UseableObjects.size(); ++i) {
 		UseableObjects[i]->tick();
@@ -230,10 +262,11 @@ void Level::tick(gkScalar delta)
 					{
 						gkGameObject* objectToDump = player->getPickedUpItem()->getObj();
 						UseableObjects.erase(std::find(UseableObjects.begin(), UseableObjects.end(), player->getPickedUpItem()));
-						player->releaseItem();
+						player->releaseItem();						
 						objectToDump->setPosition(objectToUse->getObj()->getWorldPosition());
 						objectToDump->setOrientation(objectToUse->getObj()->getWorldOrientation());
 						objectToDump->getPhysicsController()->suspend(true);
+						progressSystem->setHitPoints(progressSystem->getHitPoints() - 20);
 					}
 				}
 			}
