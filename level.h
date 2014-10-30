@@ -16,6 +16,7 @@
 #include <regex>
 #include "DomSystem.h"
 #include "GUIman.h"
+#include "ProgressSystem.h"
 
 
 
@@ -26,6 +27,7 @@ private:
 	std::vector<UseableObject*> UseableObjects;
 	DomSystem* GrannyGuard;
 	GUIman* GUImanager;
+	ProgressSystem* progressSystem;
 
 public: 
     Level(char* lvlPath);

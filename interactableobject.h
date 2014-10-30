@@ -21,6 +21,8 @@ public:
 	void block();
 	void unBlock();
 
+	int healthDamage();
+
 protected:
 	bool isOpened;
 	bool canBeUsed;
@@ -28,5 +30,6 @@ protected:
 	int momentToUndo;
 	int timeToUnblock;
 	bool blocked;
+	int healthLoss;
 };
 

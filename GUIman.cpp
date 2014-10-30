@@ -24,11 +24,13 @@ GUIman::~GUIman()
 	MoneyOverlay->hide();
 }
 
-void GUIman::setHealthCaption(const char* newCaption){
+void GUIman::setHealthCaption(std::string newCaption){
+	
 	HealthOverlay->setCaption(newCaption);
+
 }
 
-void GUIman::setMoneyCaption(const char* newCaption){
+void GUIman::setMoneyCaption(std::string newCaption){
 	MoneyOverlay->setCaption(newCaption);
 }
 

@@ -10,8 +10,8 @@ public:
 	GUIman();
 	~GUIman();
 
-	void setHealthCaption(const char* newCaption);
-	void setMoneyCaption(const char* newCaption);
+	void setHealthCaption(std::string newCaption);
+	void setMoneyCaption(std::string newCaption);
 	void showButtonE(bool show);
 
 private:
