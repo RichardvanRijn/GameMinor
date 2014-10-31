@@ -4,7 +4,7 @@ tutorialOverlays
 	
 	container Panel(fullTutorial)
 	{
-		container Panel(tutorialTextBox4)
+		container Panel(tutorialTextBox7)
 		{
 			metrics_mode pixels
 			horz_align center
@@ -70,7 +70,7 @@ tutorialOverlays
 			horz_align center
 			vert_align top
 			left 0
-			top 600
+			top 100
 			width 200
 			height 200
 
@@ -79,10 +79,80 @@ tutorialOverlays
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption text1
+				caption In this game you are a little prick which grandfather
 				colour 0.6 0.6 0.6
-				char_height 48
+				char_height 36
 			}
+			element TextArea(tutorialText12)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 50
+				caption has saved a lot of money ($900.000,-).
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText13)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 100
+				caption Since he is very old, he is living in a retirement home.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText14)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 150
+				caption Because you are written down in his last will, you will  
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText15)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 200
+				caption eventually inherit his money.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText16)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 250
+				caption But the money is diminishing, your grandfather is
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText17)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 300
+				caption getting weaker every day and his retirement home
+				colour 0.6 0.6 0.6
+				char_height 36
+			}	
+			element TextArea(tutorialText18)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 350
+				caption cost a lot of money to support him.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}			
 		}
 		container Panel(tutorialTextBox2)
 		{
@@ -90,19 +160,79 @@ tutorialOverlays
 			horz_align center
 			vert_align top
 			left 0
-			top 600
+			top 100
 			width 200
 			height 200
 
-			element TextArea(tutorialText2)
+			element TextArea(tutorialText21)
 			{
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption text2
+				caption As his greedy heir you can not stand the fact that
 				colour 0.6 0.6 0.6
-				char_height 48
+				char_height 36
 			}
+			element TextArea(tutorialText22)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 50
+				caption YOUR money (which you will inherit) is getting spent
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText23)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 100
+				caption and after a while you decide to quicken the death
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText24)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 150
+				caption of your grandfather.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText25)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 200
+				caption Logically you cannot just kill your grandfather with a 
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText26)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 250
+				caption knife or something, so you have to discretely make his
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText27)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 300
+				caption life more miserable and try to sicken him.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}			
 		}
 		container Panel(tutorialTextBox3)
 		{
@@ -110,7 +240,7 @@ tutorialOverlays
 			horz_align center
 			vert_align top
 			left 0
-			top 600
+			top 100
 			width 200
 			height 200
 
@@ -119,9 +249,150 @@ tutorialOverlays
 				metrics_mode pixels
 				font_name dialogFont
 				alignment center
-				caption text3
+				caption You can make him ill by using several items available
 				colour 0.6 0.6 0.6
-				char_height 48
+				char_height 36
+			}
+			element TextArea(tutorialText32)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 50
+				caption in game.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText33)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 100
+				caption However, the retirement home is installed with a home
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText34)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 150
+				caption automation system.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText35)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 200
+				caption This system will try to protect you grandfather.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText36)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 250
+				caption Luckily the home automation system can only handle 
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText37)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 300
+				caption one object at a time.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText38)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 350
+				caption This gives you the possibility to overflow the system 
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText39)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 350
+				caption and discretely kill your grandfather faster.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+		}
+		container Panel(tutorialTextBox4)
+		{
+			metrics_mode pixels
+			horz_align center
+			vert_align top
+			left 0
+			top 100
+			width 200
+			height 200
+
+			element TextArea(tutorialText4)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 50
+				caption In game, a health indicator is shown to show the health 
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText42)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 100
+				caption of the grandpa.
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText43)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 150
+				caption If this indictator shows 0%, you have killed your grandfather.  
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText44)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 200
+				caption You need to act fast, he will regenerate his health
+				colour 0.6 0.6 0.6
+				char_height 36
+			}
+			element TextArea(tutorialText45)
+			{
+				metrics_mode pixels
+				font_name dialogFont
+				alignment center
+				top 250
+				caption In the other corner your score (the money you will inherit) is shown.
+				colour 0.6 0.6 0.6
+				char_height 36
 			}
 		}
 	}

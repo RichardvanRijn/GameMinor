@@ -118,6 +118,7 @@ void Menu::menuAction() {
 		overlayManagerMenu->getOverlayElement("tutorialTextBox1")->show();
 		overlayManagerMenu->getOverlayElement("tutorialTextBox2")->hide();
 		overlayManagerMenu->getOverlayElement("tutorialTextBox3")->hide();
+		overlayManagerMenu->getOverlayElement("tutorialTextBox4")->hide();
 	}
 	else if (std::regex_search(menuItem.begin(), menuItem.end(), checkCredits)){
 		actualMenu = 2;
@@ -154,7 +155,7 @@ std::string Menu::getCurrentSection(){
 
 std::string Menu::getPreviousSection() {
 	if (tutorialSection == 1){
-		tutorialSection = 3;
+		tutorialSection = 4;
 	}
 	else{
 		tutorialSection -= 1;
@@ -165,7 +166,7 @@ std::string Menu::getPreviousSection() {
 }
 
 std::string Menu::getNextSection() {
-	if (tutorialSection > 2){
+	if (tutorialSection > 3){
 		tutorialSection = 1;
 	}
 	else{
